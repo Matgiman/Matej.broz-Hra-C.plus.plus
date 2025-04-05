@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+
+
+int main() {
+    cout << "Vitej ve hre Smrtelna vez.\n";
+    cout << "Tvym ukolem je dostat se nahoru, kde sidli hlavni boss Vextile.\n";
+    cout << "Ten utiskuje okolni vesnice a chrani ho 16 monster.\n";
+    cout << "Mezi nimi jsou i dva mini bossove, bratri Vexove.\n";
+    cout << "Musis je vsechny porazit a zachranit svet.\n\n";
+
+    cout << "Za kazde monstrum ziskas zkusenosti, manu a penize.\n";
+    cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n\n";
+
+    cout << "Postava:\n";
+    cout << "- Jmeno: Hrdina\n";
+    cout << "- Zivoty: 5/10\n";
+    cout << "- Mana: 1/10\n";
+    cout << "- Penize: 0\n";
+    cout << "- Level: 0\n";
+    cout << "- Zkusenosti: 0\n";
+    cout << "- Utok: 3\n";
+    cout << "- Schopnost: Stit - za 1 manu aktivujes obranu na 3 utoky.\n";
+
+    return 0;
+}
