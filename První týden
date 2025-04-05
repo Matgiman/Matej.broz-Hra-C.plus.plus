@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-int main() {
+int uvod do hry() {
     cout << "Vitej ve hre Smrtelna vez.\n";
     cout << "Tvym ukolem je dostat se nahoru, kde sidli hlavni boss Vextile.\n";
     cout << "Ten utiskuje okolni vesnice a chrani ho 16 monster.\n";
