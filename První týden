@@ -4,10 +4,10 @@ using namespace std;
 
 
 int uvod do hry() {
-    cout << "Vitej ve hre Smrtelna vez.\n";
+    cout << "Vitej ve hre Smrtelna vez.\n"; 
     cout << "Tvym ukolem je dostat se nahoru, kde sidli hlavni boss Vextile.\n";
-    cout << "Ten utiskuje okolni vesnice a chrani ho 16 monster.\n";
-    cout << "Mezi nimi jsou i dva mini bossove, bratri Vexove.\n";
+    cout << "Ten utiskuje okolni vesnice, dokonce ti zabil i otce a proto se ho rozhodl pomstít a zachrnít vesničany.\n";
+    cout << "Bosse ale chrání 16 monster, mezi nimi jsou i dva mini bossove, bratri Vexove.\n";
     cout << "Musis je vsechny porazit a zachranit svet.\n\n";
 
     cout << "Za kazde monstrum ziskas zkusenosti, manu a penize.\n";
