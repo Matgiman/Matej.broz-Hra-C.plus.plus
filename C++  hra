@@ -1,7 +1,15 @@
 #include <iostream>
 using namespace std;
 
-
+int zivoty = 5;
+int maxZivoty = 10;
+int utok = 3;
+int zlato = 2;
+int mana = 1;
+int stit = 0;
+int volbaZacatek;
+int volbaObchod
+bool vObchode = true;
 
 int uvod do hry() {
     cout << "Vitej ve hre Smrtelna vez.\n"; 
@@ -9,19 +17,120 @@ int uvod do hry() {
     cout << "Ten utiskuje okolni vesnice, dokonce ti zabil i otce a proto se ho rozhodl pomstít a zachrnít vesničany.\n";
     cout << "Bosse ale chrání 16 monster, mezi nimi jsou i dva mini bossove, bratri Vexove.\n";
     cout << "Musis je vsechny porazit a zachranit svet.\n\n";
-
-    cout << "Za kazde monstrum ziskas zkusenosti, manu a penize.\n";
+    cout << "Za kazde monstrum ziskas zkusenosti, manu a zlato.\n";
     cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n\n";
 
     cout << "Postava:\n";
     cout << "- Jmeno: Hrdina\n";
     cout << "- Zivoty: 5/10\n";
     cout << "- Mana: 1/10\n";
-    cout << "- Penize: 0\n";
+    cout << "- Zlato: 0\n";
     cout << "- Level: 0\n";
     cout << "- Zkusenosti: 0\n";
     cout << "- Utok: 3\n";
     cout << "- Schopnost: Stit - za 1 manu aktivujes obranu na 3 utoky.\n";
+
+    cout << "Jsi pripraven vydat se na svou cestu?\n";
+    cout << "Pokracovat do vesnice: 1\n";
+    cout << "Ukoncit hru: 2\n";
+    cin >> volbaZacatek;
+
+
+    if (volbaZacatek == 1) {
+    } else if (volbaZacatek == 2) {
+    cout << "Rozhodl ses hru ukoncit. Mozna priste...\n";
+    return 0;
+    } else {
+    cout << "Neplatna volba, hra se ukoncuje.\n";
+    return 0;
+}
+
+    cout << "Vitej hrdino v nasi vesnici.\n";
+    cout << "Toto je misto klidu a miru. Ale mimo vesnic jsou uzemi monster.\n";
+    cout << "Jestli je chces porazit, musis se dobre pripravit.\n";
+    cout << "Za zlato muzu vylepsit tvoje vlastnosti a za manu ti dam stit.\n";
+    cout << "Stit za 1 manu chrani proti 2 utokum.\n";
+    cout << "Zlato ziskas z monster a manu z minibosu.\n";
+    cout << "Od sveho otce jsi dostal do zacatku 3 zlata a 1 manu.\n";
+    cout << "Rovnou si muzes neco koupit nez se vydas na cestu.\n\n";
+
+    cout << "Tvoje statistiky:\n";
+    cout << "Zivoty: " << zivoty << "/" << maxZivoty << "\n";
+    cout << "Utok: " << utok << "\n";
+    cout << "Zlato: " << zlato << "\n";
+    cout << "Mana: " << mana << "\n\n";
+
+    cout << "Chces si neco koupit nebo jdes rovnou do boje?\n";
+    cout << "Nakup: 1\n";
+    cout << "Boj: 2\n";
+    cin >> volbaVesnice1;
+
+
+    if (volbaVesnice1 == 1) {
+        while (vObchode) {
+            cout << "\nRozhodl ses pro nakup, zde je tvuj zustatek a me nabidky:\n";
+            cout << "Zlato: " << zlato << "\n";
+            cout << "Mana: " << mana << "\n\n";
+            cout << "+1 utok: 1 zlato (1)\n";
+            cout << "+1 zivot: 3 zlata (2)\n";
+            cout << "Stit na dva utoky: 1 mana (3)\n";
+            cout << "Odejit z obchodu: (4)\n";
+            cout << "Co chces udelat?\n";
+            cin >> volba;
+
+            switch (volba) {
+                case 1:
+                    if (zlato >= 1) {
+                        utok += 1;
+                        zlato -= 1;
+                        cout << "Zvysil sis utok na " << utok << ".\n";
+                    } else {
+                        cout << "Nemas dostatek zlata.\n";
+                    }
+                    break;
+
+                case 2:
+                    if (zlato >= 3) {
+                        if (zivoty < maxZivoty) {
+                            zivoty += 1;
+                            zlato -= 3;
+                            cout << "Zivoty zvyseny na " << zivoty << ".\n";
+                        } else {
+                            cout << "Mas jiz maximalni pocet zivotu.\n";
+                        }
+                    } else {
+                        cout << "Nemas dostatek zlata.\n";
+                    }
+                    break;
+
+                case 3:
+                    if (mana >= 1) {
+                        stit = 2;
+                        mana -= 1;
+                        cout << "Ziskal jsi stit. Ochrani te pred 2 utoky.\n";
+                    } else {
+                        cout << "Nemas dostatek many.\n";
+                    }
+                    break;
+
+                case 4:
+                    vObchode = false;
+                    break;
+
+                default:
+                    cout << "Neplatna volba.\n";
+            }
+        }
+    } else if(volbaVesnice1 == 2) {
+    cout << "\nRozhodl ses jit do boje, preju ti hodne stesti.\n";
+    cout << "Cekaji te tri monstra a pote dorazis do dalsi {esnice.\n";
+    cout << "Hodne stesti.\n";
+    } else {
+    cout << "Neplatna volba.\n";
+    }
+
+
+
 
     return 0;
 }
