@@ -10,6 +10,7 @@ int stit = 0;
 int uvodniVolba;
 int vesniceVolba;
 int nakupVolba;
+int sanceNaDvojityDamage = 10/100;
 bool vObchode = true;
 
 int main() {
@@ -134,6 +135,21 @@ int main() {
     cout << "\nRozhodl ses jit do boje, preju ti hodne stesti.\n";
     cout << "Cekaji te tri monstra a pote dorazis do dalsi vesnice.\n";
     cout << "Hodne stesti.\n";
+    cout << "\nPravidla boje:\n";
+    cout << "V souboji proti normalnimu monstru budes mit vyhodu budes zacinat prvni.\n";
+    cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
+    cout << "Pokud zvolis utok, budes mit sanci i na dvojnásobny damege.\n";
+    cout << "Ale pak je vetsi pravdepodobnost, ze te monstrum silne zasahne.\n";
+    cout << "Pokud zvolis obranu, zautocis jen slabe, ale monstrum tobe taky neda velky damage.\n";
+    cout << "Svuj damage, sanci na dvojnasobny utok i obranu muzes vylepsit ve vesnici za zlato. Sance na dvojity damage je v procentech\n";
+    cout << "Zakladni monstra vzdy jen utoci a maji jen malou sanci na dropnuti zlata. \n";
+    cout << "Mini bossove a hlavni boss Vextile muzou ovsem zautocit i zvlit obranu jako ty. Z nich pada vzdy zlato a mana Bud opatrny a premyslej strategicky.\n";
+    cout << "Zde jsou tve statistiky a statistiky monster prto kterym ted budes bojovat:.\n";
+    cout << "Zivoty: " << zivoty << "/" << maxZivoty << "\n";
+    cout << "Utok: " << utok << "\n";
+    cout << "Sance na dvojity damege: " << sanceNaDvojityDamage << "\n";
+    cout << "Pocet monster: 3 (vsichni maji 6 zivotu a silu 0.3).\n";
+    cout << "Utok: Zacina prvni kolo s prvnim mostrem: \n";
 
     return 0;
 }
