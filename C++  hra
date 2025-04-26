@@ -7,10 +7,11 @@ int utok = 3;
 int zlato = 2;
 int mana = 1;
 int stit = 0;
+int zkusenosti = 0;
 int uvodniVolba;
+int volbaPostavy;
 int vesniceVolba;
 int nakupVolba;
-int sanceNaDvojityDamage = 10/100;
 bool vObchode = true;
 
 int main() {
@@ -21,17 +22,40 @@ int main() {
     cout << "Musis je vsechny porazit a zachranit svet.\n\n";
 
     cout << "Za kazde monstrum ziskas zkusenosti, manu a zlato.\n";
-    cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n\n";
+    cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n";
+    cout << "Nyni si vyber jednu ze dvou postav za ktere budes hrat.\n";
 
-    cout << "Postava:\n";
-    cout << "- Jmeno: Hrdina\n";
-    cout << "- Zivoty: 5/10\n";
-    cout << "- Mana: 1/10\n";
-    cout << "- Zlato: 0\n";
-    cout << "- Level: 0\n";
+    cout << "1. Postava:\n";
+    cout << "- Jmeno: Herkules\n";
+    cout << "- Zivoty: 5\n";
+    cout << "- Mana: 1\n";
+    cout << "- Zlato: 2\n";
     cout << "- Zkusenosti: 0\n";
     cout << "- Utok: 3\n";
-    cout << "- Schopnost: Stit - za 1 manu aktivujes obranu na 3 utoky.\n";
+    cout << "- Schopnost: Delova rana= Za 2 many bude mit na 2 kola dvojnasobny utok\n";
+
+    cout << "2. Postava:\n";
+    cout << "- Jmeno: Mnich\n";
+    cout << "- Zivoty: 5\n";
+    cout << "- Mana: 1\n";
+    cout << "- Zlato: 2\n";
+    cout << "- Zkusenosti: 0\n";
+    cout << "- Utok: 3\n";
+    cout << "- Schopnost: Meditece= Za 2 many aktivuje meditaci. Po meditaci se pridaji se 2 zivoty\n";
+
+    cout << "Vyber si svou postavu:\n";
+    cout << "Hercules: 1\n";
+    cout << "Mnich: 2\n";
+    cin >> volbaPostavy;
+
+    if (volbaPostavy == 1) {
+        cout << "Vybral sis Herculese\n";
+    } else if (volbaPostavy == 2) {
+        cout << "Vybral sis Mnicha\n";
+    } else {
+        cout << "Neplatna volba, hra se ukoncuje.\n";
+        return 0;
+    }
 
     cout << "Jsi pripraven vydat se na svou cestu?\n";
     cout << "Pokracovat do vesnice: 1\n";
@@ -50,8 +74,7 @@ int main() {
     cout << "Vitej hrdino v nasi vesnici.\n";
     cout << "Toto je misto klidu a miru. Ale mimo vesnic jsou uzemi monster.\n";
     cout << "Jestli je chces porazit, musis se dobre pripravit.\n";
-    cout << "Za zlato muzu vylepsit tvoje vlastnosti a za manu ti dam stit.\n";
-    cout << "Stit za 1 manu chrani proti 2 utokum.\n";
+    cout << "Za zlato muzu vylepsit tvoje vlastnosti a za manu si vylepsis sve schopnosti.\n";
     cout << "Zlato ziskas z monster a manu z minibosu.\n";
     cout << "Od sveho otce jsi dostal do zacatku 2 zlata a 1 manu.\n";
     cout << "Rovnou si muzes neco koupit nez se vydas na cestu.\n\n";
@@ -136,20 +159,20 @@ int main() {
     cout << "Cekaji te tri monstra a pote dorazis do dalsi vesnice.\n";
     cout << "Hodne stesti.\n";
     cout << "\nPravidla boje:\n";
-    cout << "V souboji proti normalnimu monstru budes mit vyhodu budes zacinat prvni.\n";
+    cout << "V souboji proti normalnimu monstru budes mit vyhodu, budes zacinat prvni.\n";
     cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
-    cout << "Pokud zvolis utok, budes mit sanci i na dvojnásobny damege.\n";
-    cout << "Ale pak je vetsi pravdepodobnost, ze te monstrum silne zasahne.\n";
+    cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok.\n";
+    cout << "Pri utoku je ale vetsi pravdepodobnost, ze te monstrum silne zasahne.\n";
     cout << "Pokud zvolis obranu, zautocis jen slabe, ale monstrum tobe taky neda velky damage.\n";
-    cout << "Svuj damage, sanci na dvojnasobny utok i obranu muzes vylepsit ve vesnici za zlato. Sance na dvojity damage je v procentech\n";
-    cout << "Zakladni monstra vzdy jen utoci a maji jen malou sanci na dropnuti zlata. \n";
-    cout << "Mini bossove a hlavni boss Vextile muzou ovsem zautocit i zvlit obranu jako ty. Z nich pada vzdy zlato a mana Bud opatrny a premyslej strategicky.\n";
+    cout << "Zakladni monstra vzdy jen utoci a maji 50% sanci na to ze z ncih vypadne zlato a dostanes z nich 0,25 zkusenosti.\n";
+    cout << "Mini bossove a hlavni boss Vextile muzou zautocit i zvolit obranu jako ty. Z nich pada vzdy zlato, mana a 1 zksenost.\n";
+    cout << "Za kazdou 1 zkusenost ziksas navic zivot. Kdyz porazis hlavniho bosse ziskas i jeho poklad.\n";
     cout << "Zde jsou tve statistiky a statistiky monster prto kterym ted budes bojovat:.\n";
     cout << "Zivoty: " << zivoty << "/" << maxZivoty << "\n";
     cout << "Utok: " << utok << "\n";
-    cout << "Sance na dvojity damege: " << sanceNaDvojityDamage << "\n";
-    cout << "Pocet monster: 3 (vsichni maji 6 zivotu a silu 0.3).\n";
-    cout << "Utok: Zacina prvni kolo s prvnim mostrem: \n";
+    cout << "Ted te cekaji tri monstra postupne, pote dorazis do druhe vesnice, pak te cekaji ctyri monstra postupne, pote dorazis do treti vesnice.\n";
+    cout << " Pote te ceakji tri mostra psotupne a pak budes bojovat proti trem monstrum najednou. Pak dorazis do ctvrte vesnice a za ni te ceka boj s dvema minibossy najednou, pak dojdes do posedni vesnice a pote uz jen do veze k hlavnimu bosovi Vextile.\n";
+    cout << "Zakladni mostra maji 6 zivotu a silu 0.3\n";
 
     return 0;
 }
