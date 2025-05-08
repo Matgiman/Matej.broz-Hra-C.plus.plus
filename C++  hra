@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib> // Tato knihovna obsahuje funkci rand(), která generuje pseudonáhodné číslo, které potřebujeme v kódu. Dále obsahuje například srand() pro nastavení generátoru náhodných čísel.
+#include <ctime>  // Tato knihovna poskytuje funkci time(), kterou používá v kombinaci s srand()
 using namespace std;
 
 void uvodniKonverzace();
@@ -10,12 +12,11 @@ void obchodMnich();
 void pripravNaBoj();
 void zacniBoj();
 
-int zivoty = 5;
+float zivoty = 5.0;
 int utok = 3;
 int zlato = 2;
 int mana = 2;
-int stit = 0;
-int zkusenosti = 0;
+float zkusenosti = 5.0;
 int uvodniVolba;
 int volbaPostavy;
 int vesniceVolba;
@@ -43,7 +44,7 @@ bool vyberPostavy() {
     cout << "- Zlato: 2\n";
     cout << "- Zkusenosti: 0\n";
     cout << "- Utok: 3\n";
-    cout << "- Schopnost: Delova rana = Za 2 many bude mit na 2 kola dvojnasobny utok\n\n";
+    cout << "- Schopnost: Delova rana = Za 2 many bude mit na 2 nasledujici kola dvojnasobny utok\n\n";
 
     cout << "2. Postava:\n";
     cout << "- Jmeno: Mnich\n";
@@ -228,19 +229,84 @@ void pripravNaBoj() {
     cout << "\nPravidla boje:\n";
     cout << "V souboji proti normalnimu monstru budes mit vyhodu, budes zacinat prvni.\n";
     cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
-    cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok.\n";
-    cout << "Pokud zvolis obranu, zautocis jen slabe, ale monstrum tobe taky neda velky damage.\n";
+    cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok, ale monstrum ti ubere 0,5.\n";
+    cout << "Pokud zvolis obranu, zautocis jen polovinou sveho utoku, ale monstrum ti ubere jen 0,3.\n";
     cout << "Zakladni monstra vzdy jen utoci a muze z nich spadnout zlato a daji ti 0,25 zkusenosti.\n";
     cout << "Mini bossove a hlavni boss muzou zautocit i zvolit obranu jako ty. Z nich pada vzdy zlato, mana a 1 zksenost.\n";
-    cout << "Za kazdou 1 zkusenost ziksas navic zivot. Kdyz porazis hlavniho bosse ziskas i jeho poklad.\n";
+    cout << "Za zkusenosti ziskas navic zivoty. Kdyz porazis hlavniho bosse ziskas i jeho poklad.\n";
     cout << "Zde jsou tve statistiky a statistiky monster prto kterym ted budes bojovat:.\n";
     cout << "Zivoty: " << zivoty << "\n";
     cout << "Utok: " << utok << "\n";
     cout << "Ted te cekaji 3 monstra postupne, pote prijdes do vesnice, pak te cekaji 4 monstra postupne, pak nasleduje vesnice.\n";
     cout << "Pote te cekaji 3 monstra postupne a pak budes bojovat proti trem monstrum najednou.\n";
     cout << "Pak nasleduje vesnice a za ni te ceka boj s dvema minibossy, pak dojdes do posledni vesnice a za ni je hlavni boss.\n";
-    cout << "Zakladni mostra maji 6 zivotu a silu 0.3. \n";
+    cout << "Zakladni mostra maji 6 zivotu a silu 0.6. \n";
+    zacniBoj();
+
+
 }
+void zacniBoj() {
+    for (int i = 1; i <= 3; i++) {
+        cout << "\nBojujes s monstrem cislo " << i << "!\n";
+        float zivotMonstra = 6.0;
+        while (zivotMonstra > 0 && zivoty > 0) {
+            int volba;
+            cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
+            cout << "Zvol akci:\n1. Utok (plny utok, monstrum ti ubere 0.5, utokem aktivujes delovou ranu pokud ji mas)\n2. Obrana (polovicni utok, monstrum ti ubere 0.3, obranou neaktivujes delovou ranu)\nVolba: ";
+            cin >> volba;
+
+            float aktualniUtok = utok;
+            if (volba == 1) {
+                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
+                    aktualniUtok *= 2;
+                    kolaDeloveRany--;
+                    if (kolaDeloveRany == 0) delovaRanaAktivni = false;
+                }
+                zivotMonstra -= aktualniUtok;
+                zivoty -= 0.5;
+                cout << "Zautocil jsi za " << aktualniUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+                cout << "Monstrum te zranilo za 0.5. Mas " << zivoty << " zivotu.\n";
+            } else if (volba == 2) {
+                float obrannyUtok = aktualniUtok / 2.0;
+                zivotMonstra -= obrannyUtok;
+                zivoty -= 0.3;
+                cout << "Zautocil jsi obrane za " << obrannyUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+                cout << "Monstrum te zranilo za 0.3. Mas " << zivoty << " zivotu.\n";
+            } else {
+                cout << "Neplatna volba, ztracis kolo!\n";
+            }
+
+            if (zivoty <= 0) {
+                cout << "Byl jsi porazen. Konec hry.\n";
+                exit(0);
+            }
+        }
+
+        cout << "\nPorazil jsi monstrum!\n";
+        zkusenosti += 0.25;
+
+        if (zkusenosti >= 1.0) {
+            zivoty += 1;
+            zkusenosti -= 1.0;
+            cout << "Ziskal jsi 1 zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+        }
+
+        int drop = rand() % 100;  //Nová podmínka pro šanci že padne zlato s kombinací s drop()
+        if (drop < 50) {
+            int ziskaneZlato = (rand() % 2) + 1;
+            zlato += ziskaneZlato;
+            cout << "Ziskal jsi " << ziskaneZlato << " zlata z monstra!\n";
+        } else {
+            cout << "Monstrum nezanechalo zadne zlato.\n";
+        }
+
+        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    }
+
+    cout << "\nPorazil jsi vsechna tri monstra! Pokracujes dal do dalsi vesnice.\n";
+}
+
+
 
 int main() {
     uvodniKonverzace();
