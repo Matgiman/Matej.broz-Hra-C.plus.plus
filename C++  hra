@@ -27,13 +27,30 @@ int kolaDeloveRany = 0;
 
 void uvodniKonverzace() {
     cout << "Vitej ve hre Smrtelna vez.\n";
-    cout << "Tvym ukolem je dostat se nahoru, kde sidli hlavni boss Vextile.\n";
-    cout << "Ten utiskuje okolni vesnice a chrani ho 16 monster.\n";
-    cout << "Mezi nimi jsou i dva mini bossove, bratri Vexove.\n";
-    cout << "Musis je vsechny porazit a zachranit svet.\n\n";
-    cout << "Za kazde monstrum ziskas zkusenosti, manu a zlato.\n";
+    cout << "Kdysi davno tuto vez ovladal tvuj otec a moudre vladl okolnim vesnicim.\n";
+    cout << "Jednoho dne ale prisel do vesnice zly Vextile a zacal menit vesnicani na monstra.\n";
+    cout << "Pomoci monster porazil tveho otce a stal se vladcem veze i okolnich vesnic.\n";
+    cout << "Jeste pred smrti te stihl zachranit stary knihovnik z vesnice.\n";
+    cout << "Vesnicani se snazili branit, ale dva vesnicane bratri Vexove pomohly Vextilovi k moci.\n";
+    cout << "S jejich pomoci, promenil vsech 16 bojovnych vesnicanu na monstra.\n";
+    cout << "Ostatni vesnicani jsou jen obchodnici a jsou nuceni pracovat pro Vextile.\n";
+    cout << "Jeho cil je podmanit si takto i dalsi vesnice a mit vetsi moc a vice monster.\n";
+    cout << "Stary knihovnik i s tebou stihl prchnout mimo vesnice do jezkyniho ukrytu.\n";
+    cout << "Zde te naucil vechno co si pamatoval od bojovnych vesnicanu.\n";
+    cout << "Tohle vsechno se stalo pred dvaceti lety, kdyz si byl jeste male dite.\n";
+    cout << "Nyni je stary knihovnik mrtvy a ty jsi pripraven pomstit jeho i smrt otce a ostatnich.\n";
+    cout << "Vextile mezitim ovladl i dalsi vesnice, stale vsak sidli ve smrtelne vezi.\n";
+    cout << "Stale ho chrani i 16 monster a mini bossove bratri Vexove.\n";
+    cout << "Tvym ukolem je dostat se nahoru, prezit, zabit mini bossy a hlavniho bosse Vextile\n";
+    cout << "Nezapomen ze monstra jsou ve skutecnosti jen nevini vesnicane, ale i tak je musis zabit.\n";
+    cout << "Neboj se, na konci bude sance vratit vsem monsrum zivot a udelat z nich opet vesnicany.\n";
+    cout << "Nyni se nachazis pred vesncici, zde je misto klidu a miru, vesnicani ti pomuzou na tve ceste.\n";
+    cout << "Mimo vesnice je ale uzemi monster a ty nemaji slitovani, ani dusi, umi jen zabijet.\n";
+    cout << "Za kazde porazene monstrum ziskas zkusenosti, manu a zlato.\n";
     cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n";
-    cout << "Nyni si vyber jednu ze dvou postav za ktere budes hrat.\n";
+    cout << "Stary knihovnik jeste pred smrti ti dal navod na dva kouzelne lektvary.\n";
+    cout << "Muzes vypit jen jeden, kazdy ti da schopnost jine postavy.\n";
+    cout << "Zde mas podrobnosti o jednotlivych postavach: \n";
 }
 
 bool vyberPostavy() {
@@ -91,11 +108,8 @@ bool uvodniVolbaHrace() {
 
 void vstupDoVesnice() {
     cout << "Vitej hrdino v nasi vesnici.\n";
-    cout << "Toto je misto klidu a miru. Ale mimo vesnic jsou uzemi monster.\n";
-    cout << "Jestli je chces porazit, musis se dobre pripravit.\n";
     cout << "Za zlato muzu vylepsit tvoje vlastnosti a za manu si vylepsis sve schopnosti.\n";
-    cout << "Zlato ziskas z monster a manu z minibosu.\n";
-    cout << "Rovnou si muzes neco koupit nez se vydas na cestu.\n\n";
+    cout << "Zlato ziskas z monster a manu z minibosu a hlavniho bosse.\n\n";
 
     cout << "Tvoje statistiky:\n";
     cout << "Zivoty: " << zivoty << "\n";
@@ -315,3 +329,4 @@ int main() {
     vstupDoVesnice();
     return 0;
 }
+
