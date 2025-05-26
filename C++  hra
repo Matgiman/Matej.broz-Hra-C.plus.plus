@@ -29,15 +29,15 @@ void uvodniKonverzace() {
     cout << "Vitej ve hre Smrtelna vez.\n";
     cout << "Kdysi davno tuto vez ovladal tvuj otec a moudre vladl okolnim vesnicim.\n";
     cout << "Vesnicani zili v miru a v klidu obchodovaly. Nahle vsak prsel do vesnice Vextile\n";
-    cout << "Nikdo nevedel kdo to je, odkud prisel, ale mel neco co vsichni chteli. Mel zlato a moc pletichare.\n";
+    cout << "Nikdo nevedel kdo to je, odkud prisel, ale mel neco co vsichni chteli. Mel zlato a byl to mistr v pletichareni.\n";
     cout << "Dokazal menit vlastni schopnosti a sliboval vsem vesnicanum, ze kdyz mu pomuzou muze pak vyrabet i zlato.\n";
     cout << "Vesnicane byli nadseni, ale netusili, ze se blizi zkaza, Vextile chtel pomoc od stareho kouzelnika.\n";
     cout << "S je ho pomoci chtel pripravit specialni napoj, aby zlepsil svoje schopnosti, vse to videl stary knihovnik.\n";
-    cout << "Ten pak prichlizel, jak dava Vextile vypit lektvar 16 nejlepsim vesnicanum.\n";
+    cout << "Ten pak prichlizel, jak dava Vextile vypit lektvar 13 nejlepsim vesnicanum.\n";
     cout << endl;
-    cout << "Vsech 16 vesnicanu, kteri byli schopni bojovat vypilo lektvary, v domeni ze ziskaji schopnost geenrovat zlato.\n";
-    cout << "Jenze to byla past, po vypiti se z nich stali monstra, knihovnik mezi tim utekl a Vextile sel zabirat vesnice.\n";
-    cout << "Nova mostra poslouchali jen jeho rozkazy a Vextile se propravoval znicit i vez s tvym otcem.\n";
+    cout << "Vsech 13 vesnicanu, kteri byli schopni bojovat vypilo lektvary, v domeni ze ziskaji schopnost geenrovat zlato.\n";
+    cout << "Jenze to byla past, po vypiti se z nich stali monstra, knihovnik mezitim utekl a Vextile sel zabirat vesnice.\n";
+    cout << "Nova mostra poslouchali jen jeho rozkazy a Vextile se pripravoval znicit i vez s tvym otcem.\n";
     cout << "Stary knihovnik chtel varovat tveho otce, ale bylo uz pozde, dva zradni bratri Vexove, pomocnici Vextile ho zajali.\n";
     cout << "Knihovnikovi se vsak povedlo zachranit tebe, maleho syna stareho vladce veze a utect z vesnice do bezpeci.\n";
     cout << "Vesnicane se marne branili, rptoi mosntrum, bratrum Vexum a Vextilovi jim nic nepomohlo.\n";
@@ -50,7 +50,7 @@ void uvodniKonverzace() {
     cout << "Nyni je stary knihovnik mrtvy a ty jsi pripraven pomstit jeho i smrt otce a ostatnich.\n";
     cout << "Vextile mezitim ovladl i dalsi vesnice, stale vsak sidli ve smrtelne vezi tveho otce.\n";
     cout << endl;
-    cout << "Stale ho chrani i 16 monster a mini bossove bratri Vexove.\n";
+    cout << "Stale ho chrani i 13 monster a mini bossove bratri Vexove.\n";
     cout << "Tvym ukolem je dostat se nahoru, prezit, zabit mini bossy a hlavniho bosse Vextile\n";
     cout << "Nezapomen ze monstra jsou ve skutecnosti jen nevini vesnicane, ale i tak je musis zabit.\n";
     cout << "Neboj se, na konci bude sance vratit vsem monsrum zivot a udelat z nich opet vesnicany.\n";
@@ -343,3 +343,25 @@ int main() {
     return 0;
 }
 
+// void minibossKonverzace() {
+// cout << "Uz chces odejit z vesnice a vydat se dal. Jeste te zastavi vesnican a rekne: Ted te ceka nejvetsi zkouska, dva mini bossove bratri Vexove chrani posledni vesnci.\n";
+// cout << "Smrtelna vez je az na konci vesnice a v ni je hlavni bos Vextile. Nejdrive musis porazito ba mini bossy, cekaji uz na tebe, hodne stesi.\n";
+// cout << "Pomalu se blizis k vesnci tesne pred ni stoji dva pomocnici, dva mini bossove, dva bratri Vexove\n";
+// cout << "Vypadaji jako normalni muzi, ale ty vis ze jsou to zradci a zabijaci. Prvni bratr te oslovi:\n";
+// cout << "Prvni bratr: Tak to jsi ty! Ty jsi zabil vsechny monstra a myslis ze premuzes i Vextile. Tak to te musim zklamat, zemres totiz tam kde tvuj otec, my te zabijeme jako jeho.\n";
+// cout << "Druhy bratr: Mozna ze jsi porazil monstra, ale my jsme lepsi. Ty jsi chce vyskakovat na samotneho Vextile a pritom neporazis ani nas, stejne; jako tvuj otec.\n";
+// cout << "Prvni monstrum: Zemres jako tvuj otec a s tebou zemre i posledni boje schopni muz, zemre nadeje a Vextile bude nejsilnejsi vladce.\n";
+// cout << "Druhy bratr: Bude dal rozsirovat svoji moc, budou vzikat nove vesncie, nova monstra a uz nic ho nezastavi.\n";
+// cout << "Podivas se na oba bratri a sebevedome reknes: Porazim vas oba a pak i samotneho hlavniho bosse Vextile. POomstim tak sveho otce a zachranim vesnici.\n";
+// cout << "Druhy bratr: Pekna pohadka, ale my nejsme monstra kamarade, my jsme silnejsi chytrejsi, lepsi.\n";
+// cout << "Prvni bratr: Nas oba se ti porazit nepodari, jsme bratri, utocime i branime se oba nejednou. Jsme jednotni a ty zemres. \n";
+// cout << "Druhy bratr: Kdys se te podari zranit jednoho, druhy te mezitim zabije a branit se obou nasim utokum nezvladnes.\n";
+// cout << "Ty se vsak nenechas zastrasit, vis jak se proti dvojtym utokum branit a jak utocit na oba zaroven. Naucil te to stary knihovnik, vis presne co a jak.\n";
+// cout << "Jsi pripraven porazit oba mini bossy, dojit do vesnice, zabit i hlavniho bosse a pomstit tak sveho otce.\n";
+// cout << "Druhy bratr: Dost bylo slov, boj zacina, priprav se na smrt!\n";
+
+
+// cout << "Nyni uz jsi porazil vsechna monstra, uz jsi porazil i mini bossy a nyni se nachazis pred mistem kam cela tvoje cesta smerovala pred Smrtelnou vezi.\n";
+// cout << "Seberes vsechnu odvahu a vstoupis dovnitr. Vez je vysoka, Vextile je az nahore. Je tam schvalne zbabelec, chce aby ses vycerpal stoupanim a nemel tolik sil na boj.\n";
+// cout << "Ty vsak vytahnes lektvar od knihovnika, je to lektvar levitace, staci ti akorat. Vystoupas az do posledniho patra a spatris hlavniho bosse Vextila.\n";
+// cout << "Vextile: Tohle jse necekal a taky jsem necekal ze se dostanes tak daleko, ale ted zemres! *Rozbehne se proti tobe, tvuj posledni boj zacina.\n";
