@@ -383,7 +383,7 @@ void obchodHercules2() {
 
         switch (nakupVolba) {
             case 1:
-                if (zlato >= 2) { utok++; zlato -= 2; cout << "Utok je nyni: " << utok << "\n"; }
+                if (zlato >= 1) { utok++; zlato -= 1; cout << "Utok je nyni: " << utok << "\n"; }
                 else cout << "Nemas dost zlata.\n";
                 break;
             case 2:
@@ -412,7 +412,7 @@ void obchodMnich2() {
 
         switch (nakupVolba) {
             case 1:
-                if (zlato >= 2) { utok++; zlato -= 2; cout << "Utok je nyni: " << utok << "\n"; }
+                if (zlato >= 1) { utok++; zlato -= 1; cout << "Utok je nyni: " << utok << "\n"; }
                 else cout << "Nemas dost zlata.\n";
                 break;
             case 2:
