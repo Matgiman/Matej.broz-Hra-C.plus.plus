@@ -4,9 +4,8 @@
 using namespace std;
 
 void uvodniKonverzace();
+void uvodniVolba();
 bool vyberPostavy();
-bool uvodniVolbaHrace();
-void vstupDoVesnice();
 void minibossKonverzace();
 void hlavnibossKonerzace();
 void obchodHercules();
@@ -21,12 +20,16 @@ void obchodHercules5();
 void obchodMnich5();
 void obchodHercules6();
 void obchodMnich6();
+void obchodHercules7();
+void obchodMnich7();
 void pripravNaBoj();
+void rychlyBoj();
 void zacniBoj();
 void zacniDruhyBoj();
 void zacniTretiBoj();
 void zacniCtvrtyBoj();
 void zacniPatyBoj();
+void zacniSestyboj();
 void bojSVextilem();
 void konec();
 bool aktivujObchod();
@@ -35,13 +38,13 @@ bool aktivujObchod3();
 bool aktivujObchod4();
 bool aktivujObchod5();
 bool aktivujObchod6();
+bool aktivujObchod7();
 
 float zivoty = 5.0;
 int utok = 3;
 int zlato = 2;
 int mana = 2;
-float zkusenosti = 5.0;
-int uvodniVolba;
+float zkusenosti = 0;
 int volbaPostavy;
 int vesniceVolba;
 int nakupVolba;
@@ -88,7 +91,30 @@ void uvodniKonverzace() {
     cout << "Stary knihovnik jeste pred smrti ti dal navod na dva kouzelne lektvary.\n";
     cout << "Muzes vypit jen jeden, kazdy ti da schopnost jine postavy.\n";
     cout << "Zde mas podrobnosti o jednotlivych postavach, vybírej moudre: \n";
+    cout << endl;
+    uvodniVolba();
 }
+
+void uvodniVolba() {
+    int volba;
+    cout << "1. Pokracovat do vyberu postavy\n";
+    cout << "2. Ukoncit hru\n";
+    cout << "Tva volba: ";
+    cin >> volba;
+
+    if (volba == 1) {
+        cout << "\nHodne stesti tvoje cesta zacina.\n";
+        vyberPostavy();
+    } else if (volba == 2) {
+        cout << "\nRozhodl ses skoncit drive, nez jsi zacal. Konec hry.\n";
+        exit(0);
+    } else {
+        cout << "\nNeplatna volba, zkus to znovu.\n";
+        uvodniVolba();
+    }
+}
+
+
 
 bool vyberPostavy() {
     cout << "1. Postava:\n";
@@ -107,7 +133,7 @@ bool vyberPostavy() {
     cout << "- Zlato: 2\n";
     cout << "- Zkusenosti: 0\n";
     cout << "- Utok: 3\n";
-    cout << "- Schopnost: Meditace = Za 2 many aktivuje meditaci. Po meditaci se pridaji 2 zivoty\n\n";
+    cout << "- Schopnost: Meditace = Za 2 many aktivuje meditaci. Po meditaci se pridaji 5 zivotu\n\n";
 
     cout << "Vyber si svou postavu:\n";
     cout << "Hercules: 1\n";
@@ -135,58 +161,262 @@ bool aktivujObchod() {
 }
 
 
-bool uvodniVolbaHrace() {
-    cout << "Jsi pripraven vydat se na svou cestu?\n";
-    cout << "Pokracovat do vesnice: 1\n";
-    cout << "Ukoncit hru: 2\n";
-    cin >> uvodniVolba;
-
-    if (uvodniVolba == 1) {
-        return true;
-    } else if (uvodniVolba == 2) {
-        cout << "Rozhodl ses hru ukoncit. Mozna priste...\n";
-        return false;
-    } else {
-        cout << "Neplatna volba, hra se ukoncuje.\n";
-        return false;
-    }
-}
-
-void vstupDoVesnice() {
-    cout << "Vitej hrdino v nasi vesnici.\n";
-    cout << "Za zlato muzu vylepsit tvoje vlastnosti a za manu si vylepsis sve schopnosti.\n";
-    cout << "Zlato ziskas z monster a manu z minibosu a hlavniho bosse.\n\n";
-
-    cout << "Tvoje statistiky:\n";
-    cout << "Zivoty: " << zivoty << "\n";
-    cout << "Utok: " << utok << "\n";
-    cout << "Zlato: " << zlato << "\n";
-    cout << "Mana: " << mana << "\n\n";
-
-    cout << "Chces si neco koupit nebo jdes rovnou do boje?\n";
-    cout << "Nakup: 1\n";
-    cout << "Boj: 2\n";
-    cin >> vesniceVolba;
-
-    if (vesniceVolba == 1) {
-        if (volbaPostavy == 1) {
-            obchodHercules();
-        } else if (volbaPostavy == 2) {
-            obchodMnich();
-        }
-    } else if (vesniceVolba == 2) {
-        pripravNaBoj();
-    } else {
-        cout << "Neplatna volba, hra se ukoncuje.\n";
-    }
-}
-
 void obchodHercules() {
     vObchode = true;
     while (vObchode) {
-        cout << "\nRozhodl ses pro nakup:\n";
+        cout << "\nVesnice 1 - Obchod pro Herculese:\n";
+        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
+        cout << "+1 utok: 2 zlata (1)\n";
+        cout << "+1 zivot: 4 zlata (2)\n";
+        cout << "Delova rana: 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
+        cin >> nakupVolba;
+
+        switch (nakupVolba) {
+            case 1:
+                if (zlato >= 1) {
+                    utok += 1;
+                    zlato -= 1;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 2:
+                if (zlato >= 3) {
+                    zivoty += 1;
+                    zlato -= 3;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 3:
+                if (mana >= 2) {
+                    delovaRanaAktivni = true;
+                    kolaDeloveRany = 2;
+                    mana -= 2;
+                    cout << "Aktivoval jsi Delovou ranu!\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
+                break;
+            case 4:
+                vObchode = false;
+                pripravNaBoj();
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+        }
+    }
+}
+
+void obchodMnich() {
+    vObchode = true;
+    while (vObchode) {
+        cout << "\n Vesnice 1 - Obchod pro mnicha\n";
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
         cout << "+1 utok: 1 zlato (1)\n";
+        cout << "+1 zivot: 3 zlata (2)\n";
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
+        cin >> nakupVolba;
+
+        switch (nakupVolba) {
+            case 1:
+                if (zlato >= 1) {
+                    utok += 1;
+                    zlato -= 1;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 2:
+                if (zlato >= 3) {
+                    zivoty += 1;
+                    zlato -= 3;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 3:
+                if (mana >= 2) {
+                    zivoty += 5;
+                    mana -= 2;
+                    cout << "Meditace dokoncena. Pridal sis 5 zivotu. Mas jich ted: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
+                break;
+            case 4:
+                vObchode = false;
+                pripravNaBoj();
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+        }
+    }
+}
+
+void pripravNaBoj() {
+    cout << "\nRozhodl ses jit do boje, preju ti hodne stesti.\n";
+    cout << "Cekaji te tri monstra a pote dorazis do dalsi vesnice.\n";
+    cout << "Hodne stesti.\n";
+    cout << "\nPravidla boje:\n";
+    cout << "V souboji proti normalnimu monstru budes mit vyhodu, budes zacinat prvni.\n";
+    cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
+    cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok, ale monstrum ti ubere 0,5.\n";
+    cout << "Pokud zvolis obranu, zautocis jen polovinou sveho utoku, ale monstrum ti ubere jen 0,3.\n";
+    cout << "Zakladni monstra vzdy jen utoci a padne z nich 1 zlato a daji ti 0,5 zkusenosti, za jednu zkusenost se ti prida zivot.\n";
+    cout << "Mini bossove a hlavni boss muzou zautocit i zvolit obranu jako ty. Z nich pada vice zlata, mana a 1 zksenost.\n";
+    cout << "Za zkusenosti ziskas navic zivoty, zlato vyuzijes ve vesnici na nakup.\n";
+    cout << "Ted te ceka prvni monstrum pak 3 monstra postupne, pote prijdes do vesnice, pak te cekaji 4 monstra postupne, pak nasleduje vesnice.\n";
+    cout << "Pote te cekaji 3 monstra postupne a pak budes bojovat proti trem monstrum najednou a pak  proti dvoum monstrum najednou.\n";
+    cout << "Pak nasleduje vesnice a za ni te ceka boj s dvema minibossy, pak dojdes do posledni vesnice a za ni je hlavni boss.\n";
+    cout << "Zakladni mostra maji 6 zivotu a silu 0.5. \n";
+    rychlyBoj();
+
+
+
+}
+
+void rychlyBoj() {
+    srand(time(0)); // resetuje čísla na nula
+    cout << "Rychly boj na zacatek!\n";
+    float zivotMonstra = 6.0;
+    while (zivotMonstra > 0 && zivoty > 0) {
+        cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
+        cout << "Zvol akci:\n1. Utok (plny utok, monstrum ti ubere 0.5)\n2. Obrana (polovicni utok, monstrum ti ubere 0.3)\nVolba: ";
+        int volba;
+        cin >> volba;
+
+        float aktualniUtok = utok;
+        if (volba == 1) {
+            zivotMonstra -= aktualniUtok;
+            zivoty -= 0.5;
+            cout << "Zautocil jsi za " << aktualniUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+            cout << "Monstrum te zranilo za 0.5. Mas " << zivoty << " zivotu.\n";
+        } else if (volba == 2) {
+            float obrannyUtok = aktualniUtok / 2.0;
+            zivotMonstra -= obrannyUtok;
+            zivoty -= 0.3;
+            cout << "Zautocil jsi obrane za " << obrannyUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+            cout << "Monstrum te zranilo za 0.3. Mas " << zivoty << " zivotu.\n";
+        } else {
+            cout << "Neplatna volba, ztracis kolo!\n";
+        }
+
+        if (zivoty <= 0) {
+            cout << "Byl jsi porazen. Konec hry.\n";
+            exit(0);
+        }
+    }
+
+    cout << "\nPorazil jsi první monstrum, nyni te ceka boj s tremi dalsimi monstry.\n";
+
+    zkusenosti += 0.5;
+
+    if (rand() % 100 < 75) {  // šance na vypadnutí zlata
+        zlato++;
+        cout << "Z monstra spadlo zlato!\n";
+    } else {
+        cout << "Z monstra nespadlo zlato.\n";
+    }
+
+    cout << "Ziskal jsi 0.5 zkusenosti.\n";
+    cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+
+    zacniBoj(); 
+}
+
+
+void zacniBoj() {
+    srand(time(0));
+    for (int i = 1; i <= 3; i++) {
+        cout << "\nBojujes s monstrem cislo " << i << "!\n";
+        float zivotMonstra = 6.0;
+        while (zivotMonstra > 0 && zivoty > 0) {
+            int volba;
+            cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
+            cout << "Zvol akci:\n1. Utok \n2. Obrana \nVolba: ";
+            cin >> volba;
+
+            float aktualniUtok = utok;
+            if (volba == 1) {
+                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
+                    aktualniUtok *= 2;
+                    kolaDeloveRany--;
+                    if (kolaDeloveRany == 0) delovaRanaAktivni = false;
+                }
+                zivotMonstra -= aktualniUtok;
+                zivoty -= 0.5;
+                cout << "Zautocil jsi za " << aktualniUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+                cout << "Monstrum te zranilo za 0.5. Mas " << zivoty << " zivotu.\n";
+            } else if (volba == 2) {
+                float obrannyUtok = aktualniUtok / 2.0;
+                zivotMonstra -= obrannyUtok;
+                zivoty -= 0.3;
+                cout << "Zautocil jsi obrane za " << obrannyUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
+                cout << "Monstrum te zranilo za 0.3. Mas " << zivoty << " zivotu.\n";
+            } else {
+                cout << "Neplatna volba, ztracis kolo!\n";
+            }
+
+            if (zivoty <= 0) {
+                cout << "Byl jsi porazen. Konec hry.\n";
+                exit(0);
+            }
+        }
+
+        cout << "\nPorazil jsi monstrum!\n";
+        zkusenosti += 0.5;
+
+        if (zkusenosti >= 1.0) {
+            zivoty += 1;
+            zkusenosti -= 1.0;
+            cout << "Ziskal jsi jeden zivot za jednu zkusenost. Mas " << zivoty << " zivotu.\n";
+        }
+
+        if (rand() % 100 < 75) {
+            zlato++;
+            cout << "Z monstra spadlo zlato!\n";
+        } else {
+            cout << "Z monstra nespadlo zlato.\n";
+        }
+
+        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    }
+
+    cout << "\nPorazil jsi vsechna tri monstra! Pokracujes dal do dalsi vesnice.\n";
+    aktivujObchod2();
+}
+
+
+bool aktivujObchod2() {
+    if (volbaPostavy == 1) {
+        cout << "Zde je obchod pro Herculese\n";
+        obchodHercules2();
+        return true;
+    } else if (volbaPostavy == 2) {
+        cout << "Zde je obchod pro Mnicha\n";
+        obchodMnich2();
+        return true;
+    } else {
+        cout << "Neplatna volba, hra se ukoncuje.\n";
+        return false;
+    }
+}
+
+void obchodHercules2() {
+    vObchode = true;
+    while (vObchode) {
+        cout << "\nVesnice 2 - Obchod pro Herculese:\n";
+        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
+        cout << "+1 utok: 1 zlata (1)\n";
         cout << "+1 zivot: 3 zlata (2)\n";
         cout << "Delova rana: 2 many (3)\n";
         cout << "Odejit z obchodu: (4)\n";
@@ -217,14 +447,14 @@ void obchodHercules() {
                     delovaRanaAktivni = true;
                     kolaDeloveRany = 2;
                     mana -= 2;
-                    cout << "Aktivoval jsi Delovou ranu! V dalsim boji budes mit dvojnasobny utok na 2 kola.\n";
+                    cout << "Aktivoval jsi Delovou ranu!\n";
                 } else {
                     cout << "Nemas dostatek many.\n";
                 }
                 break;
             case 4:
                 vObchode = false;
-                pripravNaBoj();
+                zacniDruhyBoj();
                 break;
             default:
                 cout << "Neplatna volba.\n";
@@ -232,14 +462,14 @@ void obchodHercules() {
     }
 }
 
-void obchodMnich() {
-    vObchode = true;
+void obchodMnich2() {
+       vObchode = true;
     while (vObchode) {
-        cout << "\nRozhodl ses pro nakup:\n";
+        cout << "\nVesnice 2 - Obchod pro Mnicha:\n";
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
         cout << "+1 utok: 1 zlato (1)\n";
-        cout << "+1 zivot: 3 zlata (2)\n";
-        cout << "Meditace (+2 zivoty): 2 many (3)\n";
+        cout << "+1 zivot: 3 zlata (2)\n";  
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
         cout << "Odejit z obchodu: (4)\n";
         cout << "Volba: ";
         cin >> nakupVolba;
@@ -265,16 +495,16 @@ void obchodMnich() {
                 break;
             case 3:
                 if (mana >= 2) {
-                    zivoty += 2;
+                    zivoty += 5;
                     mana -= 2;
-                    cout << "Meditace dokoncena. Pridal sis 2 zivoty. Mas jich ted: " << zivoty << "\n";
+                    cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
                 } else {
                     cout << "Nemas dostatek many.\n";
                 }
                 break;
             case 4:
                 vObchode = false;
-                pripravNaBoj();
+                zacniDruhyBoj();
                 break;
             default:
                 cout << "Neplatna volba.\n";
@@ -282,160 +512,12 @@ void obchodMnich() {
     }
 }
 
-void pripravNaBoj() {
-    cout << "\nRozhodl ses jit do boje, preju ti hodne stesti.\n";
-    cout << "Cekaji te tri monstra a pote dorazis do dalsi vesnice.\n";
-    cout << "Hodne stesti.\n";
-    cout << "\nPravidla boje:\n";
-    cout << "V souboji proti normalnimu monstru budes mit vyhodu, budes zacinat prvni.\n";
-    cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
-    cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok, ale monstrum ti ubere 0,5.\n";
-    cout << "Pokud zvolis obranu, zautocis jen polovinou sveho utoku, ale monstrum ti ubere jen 0,3.\n";
-    cout << "Zakladni monstra vzdy jen utoci a padne z nich 1 zlato a daji ti zkusenosti.\n";
-    cout << "Mini bossove a hlavni boss muzou zautocit i zvolit obranu jako ty. Z nich pada vice zlata, mana a 1 zksenost.\n";
-    cout << "Za zkusenosti ziskas navic zivoty, zlato vyuzijes ve vesnici na nakup.\n";
-    cout << "Ted te cekaji 3 monstra postupne, pote prijdes do vesnice, pak te cekaji 4 monstra postupne, pak nasleduje vesnice.\n";
-    cout << "Pote te cekaji 3 monstra postupne a pak budes bojovat proti trem monstrum najednou.\n";
-    cout << "Pak nasleduje vesnice a za ni te ceka boj s dvema minibossy, pak dojdes do posledni vesnice a za ni je hlavni boss.\n";
-    cout << "Zakladni mostra maji 6 zivotu a silu 0.5. \n";
-    zacniBoj();
-
-
-}
-void zacniBoj() {
-    for (int i = 1; i <= 3; i++) {
-        cout << "\nBojujes s monstrem cislo " << i << "!\n";
-        float zivotMonstra = 6.0;
-        while (zivotMonstra > 0 && zivoty > 0) {
-            int volba;
-            cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
-            cout << "Zvol akci:\n1. Utok (plny utok, monstrum ti ubere 0.5, utokem aktivujes delovou ranu pokud ji mas)\n2. Obrana (polovicni utok, monstrum ti ubere 0.3, obranou neaktivujes delovou ranu)\nVolba: ";
-            cin >> volba;
-
-            float aktualniUtok = utok;
-            if (volba == 1) {
-                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
-                    aktualniUtok *= 2;
-                    kolaDeloveRany--;
-                    if (kolaDeloveRany == 0) delovaRanaAktivni = false;
-                }
-                zivotMonstra -= aktualniUtok;
-                zivoty -= 0.5;
-                cout << "Zautocil jsi za " << aktualniUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
-                cout << "Monstrum te zranilo za 0.5. Mas " << zivoty << " zivotu.\n";
-            } else if (volba == 2) {
-                float obrannyUtok = aktualniUtok / 2.0;
-                zivotMonstra -= obrannyUtok;
-                zivoty -= 0.3;
-                cout << "Zautocil jsi obrane za " << obrannyUtok << ". Monstrum ma " << (zivotMonstra > 0 ? zivotMonstra : 0) << " zivotu.\n";
-                cout << "Monstrum te zranilo za 0.3. Mas " << zivoty << " zivotu.\n";
-            } else {
-                cout << "Neplatna volba, ztracis kolo!\n";
-            }
-
-            if (zivoty <= 0) {
-                cout << "Byl jsi porazen. Konec hry.\n";
-                exit(0);
-            }
-        }
-
-        cout << "\nPorazil jsi monstrum!\n";
-        zkusenosti += 0.25;
-
-        if (zkusenosti >= 1.0) {
-            zivoty += 1;
-            zkusenosti -= 1.0;
-            cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
-        }
-
-        // Nové pravidlo: vždy získáš 1 zlato
-        zlato += 1;
-        cout << "Ziskal jsi 1 zlato z monstra!\n";
-
-        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
-    }
-
-    cout << "\nPorazil jsi vsechna tri monstra! Pokracujes dal do dalsi vesnice.\n";
-    aktivujObchod2();
-}
-
-bool aktivujObchod2() {
-    if (volbaPostavy == 1) {
-        cout << "Zde je obchod pro Herculese\n";
-        obchodHercules2();
-        return true;
-    } else if (volbaPostavy == 2) {
-        cout << "Zde je obchod pro Mnicha\n";
-        obchodMnich2();
-        return true;
-    } else {
-        cout << "Neplatna volba, hra se ukoncuje.\n";
-        return false;
-    }
-}
-
-void obchodHercules2() {
-    vObchode = true;
-    while (vObchode) {
-        cout << "\nVesnice 2 - Obcod pro Herculese\nZlato: " << zlato << " | Mana: " << mana << "\n";
-        cout << "+1 utok: 1 zlata (1)\n+1 zivot: 3 zlata (2)\nDelova rana: 2 many (3)\nOdejit: (4)\nVolba: ";
-        cin >> nakupVolba;
-
-        switch (nakupVolba) {
-            case 1:
-                if (zlato >= 1) { utok++; zlato -= 1; cout << "Utok je nyni: " << utok << "\n"; }
-                else cout << "Nemas dost zlata.\n";
-                break;
-            case 2:
-                if (zlato >= 3) { zivoty++; zlato -= 3; cout << "Zivoty: " << zivoty << "\n"; }
-                else cout << "Nemas dost zlata.\n";
-                break;
-            case 3:
-                if (mana >= 2) { delovaRanaAktivni = true; kolaDeloveRany = 2; mana -= 2; cout << "Delova rana aktivni.\n"; }
-                else cout << "Nemas dost many.\n";
-                break;
-            case 4:
-                vObchode = false;
-                zacniDruhyBoj();
-                break;
-            default: cout << "Neplatna volba.\n";
-        }
-    }
-}
-
-void obchodMnich2() {
-    vObchode = true;
-    while (vObchode) {
-        cout << "\nVesnice 2 - Obchod pro Mnicha\nZlato: " << zlato << " | Mana: " << mana << "\n";
-        cout << "+1 utok: 1 zlata (1)\n+1 zivot: 3 zlata (2)\nMeditace (+2 zivoty): 2 many (3)\nOdejit: (4)\nVolba: ";
-        cin >> nakupVolba;
-
-        switch (nakupVolba) {
-            case 1:
-                if (zlato >= 1) { utok++; zlato -= 1; cout << "Utok je nyni: " << utok << "\n"; }
-                else cout << "Nemas dost zlata.\n";
-                break;
-            case 2:
-                if (zlato >= 3) { zivoty++; zlato -= 3; cout << "Zivoty: " << zivoty << "\n"; }
-                else cout << "Nemas dost zlata.\n";
-                break;
-            case 3:
-                if (mana >= 2) { zivoty += 2; mana -= 2; cout << "Meditace uspesna. Zivoty: " << zivoty << "\n"; }
-                else cout << "Nemas dost many.\n";
-                break;
-            case 4:
-                vObchode = false;
-                zacniDruhyBoj();
-                break;
-            default: cout << "Neplatna volba.\n";
-        }
-    }
-}
-
 void zacniDruhyBoj() {
+    srand(time(0));
     for (int i = 1; i <= 4; i++) {
         cout << "\nBojujes s monstrem cislo " << i << "!\n";
         float zivotMonstra = 6.0;
+
         while (zivotMonstra > 0 && zivoty > 0) {
             int volba;
             cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
@@ -470,7 +552,7 @@ void zacniDruhyBoj() {
         }
 
         cout << "\nPorazil jsi monstrum!\n";
-        zkusenosti += 0.25;
+        zkusenosti += 0.5;
 
         if (zkusenosti >= 1.0) {
             zivoty += 1;
@@ -478,8 +560,12 @@ void zacniDruhyBoj() {
             cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
         }
 
-        zlato += 1;
-        cout << "Ziskal jsi 1 zlato z monstra!\n";
+        if (rand() % 100 < 75) {
+            zlato++;
+            cout << "Z monstra spadlo zlato!\n";
+        } else {
+            cout << "Z monstra nespadlo zlato.\n";
+        }
 
         cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
     }
@@ -506,32 +592,50 @@ bool aktivujObchod3() {
 void obchodHercules3() {
     vObchode = true;
     while (vObchode) {
-        cout << "\nObchod ve vesnici 3 - Hercules\n";
+        cout << "\nVesnice 3 - Obchod pro Herculese:\n";
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
-        cout << "+1 utok: 1 zlato (1)\n";
+        cout << "+1 utok: 1 zlata (1)\n";
         cout << "+1 zivot: 4 zlata (2)\n";
         cout << "Delova rana: 2 many (3)\n";
-        cout << "Odejit z obchodu: (4)\nVolba: ";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
         cin >> nakupVolba;
 
         switch (nakupVolba) {
             case 1:
-                if (zlato >= 1) { utok++; zlato--; cout << "Zvysil sis utok na " << utok << ".\n"; }
-                else cout << "Nemas dostatek zlata.\n";
+                if (zlato >= 1) {
+                    utok += 1;
+                    zlato -= 1;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
                 break;
             case 2:
-                if (zlato >= 4) { zivoty++; zlato -= 4; cout << "Zivoty: " << zivoty << "\n"; }
-                else cout << "Nemas dostatek zlata.\n";
+                if (zlato >= 4) {
+                    zivoty += 1;
+                    zlato -= 4;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
                 break;
             case 3:
-                if (mana >= 2) { delovaRanaAktivni = true; kolaDeloveRany = 2; mana -= 2; cout << "Delova rana aktivovana.\n"; }
-                else cout << "Nemas dostatek many.\n";
+                if (mana >= 2) {
+                    delovaRanaAktivni = true;
+                    kolaDeloveRany = 2;
+                    mana -= 2;
+                    cout << "Aktivoval jsi Delovou ranu!\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
                 break;
             case 4:
-                vObchode = false; 
-                zacniTretiBoj(); 
+                vObchode = false;
+                zacniTretiBoj();
                 break;
-            default: cout << "Neplatna volba.\n";
+            default:
+                cout << "Neplatna volba.\n";
         }
     }
 }
@@ -539,41 +643,60 @@ void obchodHercules3() {
 void obchodMnich3() {
     vObchode = true;
     while (vObchode) {
-        cout << "\nObchod ve vesnici 3 - Mnich\n";
+        cout << "\nVesnice 3 - Obchod pro Mnicha:\n";
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
         cout << "+1 utok: 1 zlato (1)\n";
-        cout << "+1 zivot: 4 zlata (2)\n";
-        cout << "Meditace: 2 many (3)\n";
-        cout << "Odejit z obchodu: (4)\nVolba: ";
+        cout << "+1 zivot: 4 zlata (2)\n";  
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
         cin >> nakupVolba;
 
         switch (nakupVolba) {
             case 1:
-                if (zlato >= 1) { utok++; zlato--; cout << "Zvysil sis utok na " << utok << ".\n"; }
-                else cout << "Nemas dostatek zlata.\n";
+                if (zlato >= 1) {
+                    utok += 1;
+                    zlato -= 1;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
                 break;
             case 2:
-                if (zlato >= 4) { zivoty++; zlato -= 4; cout << "Zivoty: " << zivoty << "\n"; }
-                else cout << "Nemas dostatek zlata.\n";
+                if (zlato >= 4) {
+                    zivoty += 1;
+                    zlato -= 4;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
                 break;
             case 3:
-                if (mana >= 2) { zivoty += 2; mana -= 2; cout << "Meditace dokoncena.\n"; }
-                else cout << "Nemas dostatek many.\n";
+                if (mana >= 2) {
+                    zivoty += 5;
+                    mana -= 2;
+                    cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
                 break;
             case 4:
-                vObchode = false; 
-                zacniTretiBoj(); 
+                vObchode = false;
+                zacniTretiBoj();
                 break;
-            default: cout << "Neplatna volba.\n";
+            default:
+                cout << "Neplatna volba.\n";
         }
     }
 }
 
 
 void zacniTretiBoj() {
+    srand(time(0));
     for (int i = 1; i <= 3; i++) {
         cout << "\nBojujes s monstrem cislo " << i << " ve tretim boji!\n";
         float zivotMonstra = 6.0;
+        bool zlatoSpadlo = false;
 
         while (zivotMonstra > 0 && zivoty > 0) {
             int volba;
@@ -609,7 +732,7 @@ void zacniTretiBoj() {
         }
 
         cout << "\nPorazil jsi monstrum!\n";
-        zkusenosti += 0.25;
+        zkusenosti += 0.5;
 
         if (zkusenosti >= 1.0) {
             zivoty += 1;
@@ -617,8 +740,13 @@ void zacniTretiBoj() {
             cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
         }
 
-        zlato += 2;
-        cout << "Ziskal jsi 1 zlato z monstra!\n";
+        if (rand() % 100 < 75) {
+            zlato++;
+            cout << "Z monstra spadlo zlato!\n";
+        } else {
+            cout << "Z monstra nespadlo zlato.\n";
+        }
+
         cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
     }
 
@@ -700,7 +828,7 @@ void obchodMnich4() {
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
         cout << "+1 utok: 2 zlata (1)\n";  // dražší o 1
         cout << "+1 zivot: 4 zlata (2)\n";
-        cout << "Meditace (+2 zivoty): 2 many (3)\n";
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
         cout << "Odejit z obchodu: (4)\n";
         cout << "Volba: ";
         cin >> nakupVolba;
@@ -726,7 +854,7 @@ void obchodMnich4() {
                 break;
             case 3:
                 if (mana >= 2) {
-                    zivoty += 2;
+                    zivoty += 5;
                     mana -= 2;
                     cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
                 } else {
@@ -744,9 +872,8 @@ void obchodMnich4() {
 }
 
 
-
-
 void zacniCtvrtyBoj() {
+    srand(time(0));
     float zivotMonstra[3] = {6.0, 6.0, 6.0};
 
     cout << "\nZacina ctvry boj – bojujes proti trem monstrum zaroven!\n";
@@ -785,6 +912,16 @@ void zacniCtvrtyBoj() {
             } else {
                 cout << "Neplatna volba. Ztracis kolo!\n";
             }
+
+            if (zivotMonstra[cil - 1] <= 0) {
+                int nahoda = rand() % 100;
+                if (nahoda < 75) {
+                    zlato += 1;
+                    cout << "Z monstra spadlo zlato! Mas celkem " << zlato << " zlata.\n";
+                } else {
+                    cout << "Z monstra nespadlo zlato.\n";
+                }
+            }
         }
 
         float celkoveZraneni = 0.0;
@@ -804,8 +941,8 @@ void zacniCtvrtyBoj() {
         }
     }
 
-    cout << "\nPorazil jsi vsechna tri monstra naraz!\n";
-    zkusenosti += 0.75;
+    cout << "\nPorazil jsi vsechna tri monstra!\n";
+    zkusenosti += 1.5;
 
     if (zkusenosti >= 1.0) {
         zivoty += 1;
@@ -813,13 +950,13 @@ void zacniCtvrtyBoj() {
         cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
     }
 
-    zlato += 5;
-    cout << "Ziskal jsi 3 zlata! Celkem mas " << zlato << " zlata.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
     cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
 
-    cout << "\nTreti souboj dokonceny – pokracujes dal!\n";
+    cout << "\nSouboj dokonceny – pokracujes dal!\n";
     aktivujObchod5();
 }
+
 
 bool aktivujObchod5() {
     if (volbaPostavy == 1) {
@@ -835,57 +972,6 @@ bool aktivujObchod5() {
         return false;
     }
 }
-
-void obchodMnich5() {
-    vObchode = true;
-    while (vObchode) {
-        cout << "\nVesnice 5 - Obchod pro Mnicha:\n";
-        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
-        cout << "+1 utok: 2 zlata (1)\n";
-        cout << "+1 zivot: 4 zlata (2)\n";
-        cout << "Meditace (+2 zivoty): 2 many (3)\n";
-        cout << "Odejit z obchodu: (4)\n";
-        cout << "Volba: ";
-        cin >> nakupVolba;
-
-        switch (nakupVolba) {
-            case 1:
-                if (zlato >= 2) {
-                    utok += 1;
-                    zlato -= 2;
-                    cout << "Zvysil sis utok na " << utok << ".\n";
-                } else {
-                    cout << "Nemas dostatek zlata.\n";
-                }
-                break;
-            case 2:
-                if (zlato >= 4) {
-                    zivoty += 1;
-                    zlato -= 4;
-                    cout << "Zivoty: " << zivoty << "\n";
-                } else {
-                    cout << "Nemas dostatek zlata.\n";
-                }
-                break;
-            case 3:
-                if (mana >= 2) {
-                    zivoty += 2;
-                    mana -= 2;
-                    cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
-                } else {
-                    cout << "Nemas dostatek many.\n";
-                }
-                break;
-            case 4:
-                vObchode = false;
-                minibossKonverzace();
-                break;
-            default:
-                cout << "Neplatna volba.\n";
-        }
-    }
-}
-
 
 void obchodHercules5() {
     vObchode = true;
@@ -930,7 +1016,58 @@ void obchodHercules5() {
                 break;
             case 4:
                 vObchode = false;
-                minibossKonverzace();
+                zacniPatyBoj();
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+        }
+    }
+}
+
+
+void obchodMnich5() {
+    vObchode = true;
+    while (vObchode) {
+        cout << "\nVesnice 5 - Obchod pro Mnicha:\n";
+        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
+        cout << "+1 utok: 2 zlata (1)\n";
+        cout << "+1 zivot: 4 zlata (2)\n";
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
+        cin >> nakupVolba;
+
+        switch (nakupVolba) {
+            case 1:
+                if (zlato >= 2) {
+                    utok += 1;
+                    zlato -= 2;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 2:
+                if (zlato >= 4) {
+                    zivoty += 1;
+                    zlato -= 4;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 3:
+                if (mana >= 2) {
+                    zivoty += 5;
+                    mana -= 2;
+                    cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
+                break;
+            case 4:
+                vObchode = false;
+                zacniPatyBoj();
                 break;
             default:
                 cout << "Neplatna volba.\n";
@@ -940,51 +1077,33 @@ void obchodHercules5() {
 
 
 
-void minibossKonverzace() {
-cout << "Uz chces odejit z vesnice a vydat se dal. Jeste te zastavi vesnican a rekne: Ted te ceka nejvetsi zkouska, dva mini bossove bratri Vexove chrani posledni vesnci.\n";
-cout << "Smrtelna vez je az na konci vesnice a v ni je hlavni bos Vextile. Nejdrive musis porazit oba mini bossy, cekaji uz na tebe, hodne stesi.\n";
-cout << "Pomalu se blizis k vesnci tesne pred ni stoji dva pomocnici, dva mini bossove, dva bratri Vexove\n";
-cout << "Vypadaji jako normalni muzi, ale ty vis ze jsou to zradci a zabijaci. Prvni bratr te oslovi:\n";
-cout << "Prvni bratr: Tak to jsi ty! Ty jsi zabil vsechny monstra a myslis ze premuzes i Vextile. Tak to te musim zklamat, zemres tam kde tvuj otec, my te zabijeme jako jeho.\n";
-cout << "Druhy bratr: Mozna ze jsi porazil monstra, ale my jsme lepsi. Ty jsi chces vyskakovat na samotneho Vextile a pritom neporazis ani nas, stejne; jako tvuj otec.\n";
-cout << "Prvni monstrum: Zemres jako tvuj otec a s tebou zemre i posledni boje schopni muz, zemre nadeje a Vextile bude nejsilnejsi vladce.\n";
-cout << "Druhy bratr: Bude dal rozsirovat svoji moc, budou vzikat nove vesncie, nova monstra a uz nic ho nezastavi.\n";
-cout << "Podivas se na oba bratri a sebevedome reknes: Porazim vas oba a pak i samotneho hlavniho bosse Vextile. Poomstim tak sveho otce a zachranim vesnici.\n";
-cout << "Druhy bratr: Pekna pohadka, ale my nejsme monstra kamarade, my jsme silnejsi chytrejsi, lepsi.\n";
-cout << "Prvni bratr: Nas oba se ti porazit nepodari, jsme bratri, utocime i branime se oba nejednou. Jsme jednotni a ty zemres. \n";
-cout << "Druhy bratr: Kdys se te podari zranit jednoho, druhy te mezitim zabije a branit se obou nasim utokum nezvladnes.\n";
-cout << "Ty se vsak nenechas zastrasit, vis jak se proti dvojtym utokum branit a jak utocit efektivne. Naucil te to stary knihovnik, vis presne co a jak.\n";
-cout << "Jsi pripraven porazit oba mini bossy, dojit do vesnice, zabit i hlavniho bosse a pomstit tak sveho otce.\n";
-cout << "Druhy bratr: Dost bylo slov, boj zacina, priprav se na smrt!\n";
 
-zacniPatyBoj();
-
-}
 
 void zacniPatyBoj() {
-    float zivotyMinibossu[2] = {20.0, 20.0};
+    srand(time(0));
+    float zivotMonstra[2] = {6.0, 6.0};
+    bool zlatoSpadlo[2] = {false, false};
 
-    cout << "\nZacina paty boj – bojujes proti 2 minibossum najednou!\n";
+    cout << "\nZacina paty boj – bojujes proti dvema monstrum zaroven!\n";
 
-    while ((zivotyMinibossu[0] > 0 || zivotyMinibossu[1] > 0) && zivoty > 0) {
+    while ((zivotMonstra[0] > 0 || zivotMonstra[1] > 0) && zivoty > 0) {
         cout << "\nZivoty: " << zivoty << " | Utok: " << utok << "\n";
         for (int i = 0; i < 2; i++) {
-            cout << "Miniboss " << (i + 1) << ": " << (zivotyMinibossu[i] > 0 ? zivotyMinibossu[i] : 0) << " zivotu\n";
+            cout << "Monstrum " << (i + 1) << ": " << (zivotMonstra[i] > 0 ? zivotMonstra[i] : 0) << " zivotu\n";
         }
 
         int cil;
-        cout << "Na ktereho minibosse chces zautocit? (1 nebo 2): ";
+        cout << "Na ktere monstrum chces zautocit? (1-2): ";
         cin >> cil;
 
-        if (cil < 1 || cil > 2 || zivotyMinibossu[cil - 1] <= 0) {
-            cout << "Neplatny cil nebo miniboss je uz mrtvy. Ztracis kolo!\n";
+        int volba = 0;
+        if (cil < 1 || cil > 2 || zivotMonstra[cil - 1] <= 0) {
+            cout << "Neplatny cil nebo monstrum je uz mrtve. Ztracis kolo!\n";
         } else {
-            int volba;
             cout << "Zvol akci:\n1. Utok \n2. Obrana \nVolba: ";
             cin >> volba;
 
             float aktualniUtok = utok;
-            bool obranaMinibosse = (rand() % 100) < 40; // 40% sance na obranu minibosse
 
             if (volba == 1) {
                 if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
@@ -992,54 +1111,59 @@ void zacniPatyBoj() {
                     kolaDeloveRany--;
                     if (kolaDeloveRany == 0) delovaRanaAktivni = false;
                 }
+                zivotMonstra[cil - 1] -= aktualniUtok;
+                cout << "Zautocil jsi na monstrum " << cil << " za " << aktualniUtok << ".\n";
             } else if (volba == 2) {
-                aktualniUtok /= 2.0;
+                float obrannyUtok = aktualniUtok / 2.0;
+                zivotMonstra[cil - 1] -= obrannyUtok;
+                cout << "Zautocil jsi obrane na monstrum " << cil << " za " << obrannyUtok << ".\n";
             } else {
                 cout << "Neplatna volba. Ztracis kolo!\n";
-                aktualniUtok = 0;
             }
 
-            if (obranaMinibosse) {
-                aktualniUtok /= 2.0;
-                cout << "Miniboss se brani! Tvuj utok je snizen na polovinu.\n";
+            if (zivotMonstra[cil - 1] <= 0 && !zlatoSpadlo[cil - 1]) {
+                zlatoSpadlo[cil - 1] = true;
+                if (rand() % 100 < 75) {
+                    zlato++;
+                    cout << "Z monstra spadlo zlato!\n";
+                } else {
+                    cout << "Z monstra nespadlo zlato.\n";
+                }
             }
-
-            zivotyMinibossu[cil - 1] -= aktualniUtok;
-            cout << "Zautocil jsi na minibosse " << cil << " za " << aktualniUtok << " poskozeni.\n";
         }
 
+        float celkoveZraneni = 0.0;
         for (int i = 0; i < 2; i++) {
-            if (zivotyMinibossu[i] > 0) {
-                zivoty -= 1.0;
-                cout << "Miniboss " << (i + 1) << " na tebe utocil za 1.0 zivotu.\n";
+            if (zivotMonstra[i] > 0) {
+                celkoveZraneni += (volba == 2 ? 0.3 : 0.5);
             }
         }
 
-        cout << "Mas " << zivoty << " zivotu.\n";
+        zivoty -= celkoveZraneni;
+        cout << "Monstra te zranila dohromady za " << celkoveZraneni << ". Mas " << zivoty << " zivotu.\n";
 
         if (zivoty <= 0) {
-            cout << "Byl jsi porazen minibossy. Konec hry.\n";
+            cout << "Byl jsi porazen. Konec hry.\n";
             exit(0);
         }
     }
 
-    cout << "\nPorazil jsi oba minibossy!\n";
-    zlato += 15;
-    zkusenosti += 1.0;
-    mana += 2.0;
+    cout << "\nPorazil jsi obe monstra!\n";
+    zkusenosti += 1.5;
 
-    cout << "Ziskal jsi 5 zlata a 1 zkusenost.\n";
     if (zkusenosti >= 1.0) {
         zivoty += 1;
         zkusenosti -= 1.0;
-        cout << "Ziskal jsi dalsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+        cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
     }
 
-    cout << "Celkem mas: " << zlato << " zlata a " << zkusenosti << " zkusenosti.\n";
-    cout << "\nPaty souboj ukoncen – pokracujes dal!\n";
-    
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+
+    cout << "\nPaty boj dokonceny – pokracujes dal!\n";
     aktivujObchod6();
 }
+
 
 bool aktivujObchod6() {
     if (volbaPostavy == 1) {
@@ -1099,7 +1223,7 @@ void obchodHercules6() {
                 break;
             case 4:
                 vObchode = false;
-                hlavnibossKonerzace();
+                minibossKonverzace();
                 break;
             default:
                 cout << "Neplatna volba.\n";
@@ -1114,7 +1238,7 @@ void obchodMnich6() {
         cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
         cout << "+1 utok: 2 zlato (1)\n";
         cout << "+1 zivot: 4 zlata (2)\n";  
-        cout << "Meditace (+2 zivoty): 2 many (3)\n";
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
         cout << "Odejit z obchodu: (4)\n";
         cout << "Volba: ";
         cin >> nakupVolba;
@@ -1140,7 +1264,243 @@ void obchodMnich6() {
                 break;
             case 3:
                 if (mana >= 2) {
-                    zivoty += 2;
+                    zivoty += 5;
+                    mana -= 2;
+                    cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
+                break;
+            case 4:
+                vObchode = false;
+                minibossKonverzace();
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+        }
+    }
+}
+
+void minibossKonverzace() {
+cout << "Uz chces odejit z vesnice a vydat se dal. Jeste te zastavi vesnican a rekne: Ted te ceka nejvetsi zkouska, dva mini bossove bratri Vexove chrani posledni vesnci.\n";
+cout << "Smrtelna vez je az na konci vesnice a v ni je hlavni bos Vextile. Nejdrive musis porazit oba mini bossy, cekaji uz na tebe, hodne stesi.\n";
+cout << "Pomalu se blizis k vesnci tesne pred ni stoji dva pomocnici, dva mini bossove, dva bratri Vexove\n";
+cout << "Vypadaji jako normalni muzi, ale ty vis ze jsou to zradci a zabijaci. Prvni bratr te oslovi:\n";
+cout << endl;
+cout << "Prvni bratr: Tak to jsi ty! Ty jsi zabil vsechny monstra a myslis ze premuzes i Vextile. Tak to te musim zklamat, zemres tam kde tvuj otec, my te zabijeme jako jeho.\n";
+cout << endl;
+cout << "Druhy bratr: Mozna ze jsi porazil monstra, ale my jsme lepsi. Ty jsi chces vyskakovat na samotneho Vextile a pritom neporazis ani nas, stejne; jako tvuj otec.\n";
+cout << endl;
+cout << "Prvni monstrum: Zemres jako tvuj otec a s tebou zemre i posledni boje schopni muz, zemre nadeje a Vextile bude nejsilnejsi vladce.\n";
+cout << endl;
+cout << "Druhy bratr: Bude dal rozsirovat svoji moc, budou vzikat nove vesncie, nova monstra a uz nic ho nezastavi.\n";
+cout << endl;
+cout << "Podivas se na oba bratri a sebevedome reknes: Porazim vas oba a pak i samotneho hlavniho bosse Vextile. Poomstim tak sveho otce a zachranim vesnici.\n";
+cout << endl;
+cout << "Druhy bratr: Pekna pohadka, ale my nejsme monstra kamarade, my jsme silnejsi chytrejsi, lepsi.\n";
+cout << endl;
+cout << "Prvni bratr: Nas oba se ti porazit nepodari, jsme bratri, utocime i branime se oba nejednou. Jsme jednotni a ty zemres. \n";
+cout << endl;
+cout << "Druhy bratr: Kdys se te podari zranit jednoho, druhy te mezitim zabije a branit se obou nasim utokum nezvladnes.\n";
+cout << endl;
+cout << "Ty se vsak nenechas zastrasit, vis jak se proti dvojtym utokum branit a jak utocit efektivne. Naucil te to stary knihovnik, vis presne co a jak.\n";
+cout << "Jsi pripraven porazit oba mini bossy, dojit do vesnice, zabit i hlavniho bosse a pomstit tak sveho otce.\n";
+cout << "Druhy bratr: Dost bylo slov, boj zacina, priprav se na smrt!\n";
+
+zacniSestyboj();
+
+}
+
+
+void zacniSestyboj() {
+    srand(time(0));
+    float zivotyMinibossu[2] = {20.0, 20.0};
+    bool hracSeBranilMinuleKolo = false; // NOVÁ PROMĚNNÁ
+
+    cout << "\nZacina paty boj – bojujes proti 2 minibossum najednou!\n";
+    while ((zivotyMinibossu[0] > 0 || zivotyMinibossu[1] > 0) && zivoty > 0) {
+
+        // Nejprve útočí minibossové
+        for (int i = 0; i < 2; i++) {
+            if (zivotyMinibossu[i] > 0) {
+                float dmg = hracSeBranilMinuleKolo ? 0.5 : 1.0;
+                zivoty -= dmg;
+                cout << "Miniboss " << (i + 1) << " na tebe utocil za " << dmg << " zivotu.\n";
+            }
+        }
+
+        cout << "Mas " << zivoty << " zivotu.\n";
+        if (zivoty <= 0) {
+            cout << "Byl jsi porazen minibossy. Konec hry.\n";
+            exit(0);
+        }
+
+        // Hráčův tah
+        cout << "\nZivoty: " << zivoty << " | Utok: " << utok << "\n";
+        for (int i = 0; i < 2; i++) {
+            cout << "Miniboss " << (i + 1) << ": " << (zivotyMinibossu[i] > 0 ? zivotyMinibossu[i] : 0) << " zivotu\n";
+        }
+
+        int cil;
+        cout << "Na ktereho minibosse chces zautocit? (1 nebo 2): ";
+        cin >> cil;
+
+        if (cil < 1 || cil > 2 || zivotyMinibossu[cil - 1] <= 0) {
+            cout << "Neplatny cil nebo miniboss je uz mrtvy. Ztracis kolo!\n";
+            hracSeBranilMinuleKolo = false;
+        } else {
+            int volba;
+            cout << "Zvol akci:\n1. Utok \n2. Obrana \nVolba: ";
+            cin >> volba;
+
+            float aktualniUtok = utok;
+            bool obranaMinibosse = (rand() % 100) < 50;
+
+            if (volba == 1) {
+                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
+                    aktualniUtok *= 2;
+                    kolaDeloveRany--;
+                    if (kolaDeloveRany == 0) delovaRanaAktivni = false;
+                }
+                hracSeBranilMinuleKolo = false;
+            } else if (volba == 2) {
+                aktualniUtok /= 2.0;
+                hracSeBranilMinuleKolo = true;
+            } else {
+                cout << "Neplatna volba. Ztracis kolo!\n";
+                aktualniUtok = 0;
+                hracSeBranilMinuleKolo = false;
+            }
+
+            if (obranaMinibosse) {
+                aktualniUtok /= 2.0;
+                cout << "Miniboss se brani! Tvuj utok je snizen na polovinu.\n";
+            }
+
+            zivotyMinibossu[cil - 1] -= aktualniUtok;
+            cout << "Zautocil jsi na minibosse " << cil << " za " << aktualniUtok << " poskozeni.\n";
+        }
+    }
+
+    cout << "\nPorazil jsi oba minibossy a ziskal jsi jejich poklad.\n";
+    zlato += 15;
+    zkusenosti += 3;
+    mana += 2.0;
+
+    if (zkusenosti >= 1.0) {
+        zivoty += 1;
+        zkusenosti -= 1.0;
+        cout << "Ziskal jsi dalsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+    }
+
+    cout << "Celkem mas: " << zlato << " zlata a " << zkusenosti << " zkusenosti.\n";
+    cout << "\nSesty souboj ukoncen – pokracujes dal!\n";
+
+    aktivujObchod7();
+}
+
+
+
+bool aktivujObchod7() {
+    if (volbaPostavy == 1) {
+        cout << "Zde je obchod pro Herculese\n";
+        obchodHercules7();
+        return true;
+    } else if (volbaPostavy == 2) {
+        cout << "Zde je obchod pro Mnicha\n";
+        obchodMnich7();
+        return true;
+    } else {
+        cout << "Neplatna volba, hra se ukoncuje.\n";
+        return false;
+    }
+}
+
+void obchodHercules7() {
+    vObchode = true;
+    while (vObchode) {
+        cout << "\nVesnice 6 - Obchod pro Herculese:\n";
+        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
+        cout << "+1 utok: 2 zlato (1)\n";
+        cout << "+1 zivot: 4 zlata (2)\n";  
+        cout << "Delova rana: 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
+        cin >> nakupVolba;
+
+        switch (nakupVolba) {
+            case 1:
+                if (zlato >= 2) {
+                    utok += 1;
+                    zlato -= 2;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 2:
+                if (zlato >= 4) {
+                    zivoty += 1;
+                    zlato -= 4;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 3:
+                if (mana >= 2) {
+                    delovaRanaAktivni = true;
+                    kolaDeloveRany = 2;
+                    mana -= 2;
+                    cout << "Aktivoval jsi Delovou ranu!\n";
+                } else {
+                    cout << "Nemas dostatek many.\n";
+                }
+                break;
+            case 4:
+                vObchode = false;
+                hlavnibossKonerzace();
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+        }
+    }
+}
+
+void obchodMnich7() {
+    vObchode = true;
+    while (vObchode) {
+        cout << "\nVesnice 6 - Obchod pro Mnicha:\n";
+        cout << "Zlato: " << zlato << " | Mana: " << mana << "\n";
+        cout << "+1 utok: 2 zlato (1)\n";
+        cout << "+1 zivot: 4 zlata (2)\n";  
+        cout << "Meditace (+5 zivoty): 2 many (3)\n";
+        cout << "Odejit z obchodu: (4)\n";
+        cout << "Volba: ";
+        cin >> nakupVolba;
+
+        switch (nakupVolba) {
+            case 1:
+                if (zlato >= 2) {
+                    utok += 1;
+                    zlato -= 2;
+                    cout << "Zvysil sis utok na " << utok << ".\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 2:
+                if (zlato >= 4) {
+                    zivoty += 1;
+                    zlato -= 4;
+                    cout << "Zivoty: " << zivoty << "\n";
+                } else {
+                    cout << "Nemas dostatek zlata.\n";
+                }
+                break;
+            case 3:
+                if (mana >= 2) {
+                    zivoty += 5;
                     mana -= 2;
                     cout << "Meditace dokoncena. Mas " << zivoty << " zivotu.\n";
                 } else {
@@ -1162,6 +1522,12 @@ cout << "Nyni uz jsi porazil vsechna monstra, uz jsi porazil i mini bossy a nyni
 cout << "Seberes vsechnu odvahu a vstoupis dovnitr. Vez je vysoka, Vextile je az nahore. Je tam schvalne zbabelec, chce aby ses vycerpal stoupanim a nemel tolik sil na boj.\n";
 cout << "Ty vsak vytahnes lektvar od knihovnika, je to lektvar levitace, staci ti akorat. Vystoupas az do posledniho patra a spatris hlavniho bosse Vextila.\n";
 cout << "Vextile: Tohle jsem necekal a taky jsem necekal ze se dostanes tak daleko, ale ted zemres! *Rozbehne se proti tobe, tvuj posledni boj zacina.\n";
+cout << endl;
+cout << "Dej si pozor. Vextile meni kazde kolo svou taktiku.\n";
+cout << "Muze utocit, branit se, lecit nebo dat kriticky utok.\n";
+cout << "Kdyz opakuje stejnou schopnost, zesiluje ji.\n";
+cout << "Po trech tvych utocich ti muze zablokovat utok.\n";
+cout << "Ma sanci ti resetovat schopnost a manu.\n";
 bojSVextilem ();
 }
 
@@ -1169,7 +1535,7 @@ bojSVextilem ();
 void bojSVextilem() {
     srand(time(0));
     float zivotyVextila = 40.0;
-    float utokVextila = 3.0;
+    float utokVextila = 2.0;
     string posledniEfekt = "";
     string aktualniEfekt = "";
     int nasobeniEfektu = 1;
@@ -1211,7 +1577,7 @@ void bojSVextilem() {
         } else if (aktualniEfekt == "regenerace") {
             float regen = (rand() % 2 + 1) * nasobeniEfektu;
             zivotyVextila += regen;
-            if (zivotyVextila > 15.0) zivotyVextila = 15.0;
+            if (zivotyVextila > 40.0) zivotyVextila = 40.0;
             cout << "Vextile se zregeneroval o " << regen << " zivotu!\n";
         } else if (aktualniEfekt == "kriticka_sance") {
             int kritSance = rand() % 100;
@@ -1221,7 +1587,7 @@ void bojSVextilem() {
             }
         }
 
-        // Sance na reset hracovych bonusu (10%)
+        // Sance na reset hracovych bonusu (10 %)
         int reset = rand() % 100;
         if (reset < 10) {
             delovaRanaAktivni = false;
@@ -1229,6 +1595,15 @@ void bojSVextilem() {
             mana = 0;
             cout << "Vextile resetoval tve schopnosti!\n";
         }
+
+        // Vextiluv utok probiha jako prvni
+        float finalniUtokVextila = utokVextila + bonusUtokVextila;
+        if (kritickyUtok) finalniUtokVextila *= 2;
+
+        zivoty -= finalniUtokVextila;
+        cout << "Vextile ti zpusobil " << finalniUtokVextila << " zraneni. Mas " << zivoty << " zivotu.\n";
+
+        if (zivoty <= 0) break;
 
         // Hracova volba akce
         int volba;
@@ -1255,7 +1630,7 @@ void bojSVextilem() {
             cout << "Neplatna volba, ztracis kolo!\n";
         }
 
-        // Sledujeme po sobe utoky
+        // Sleduje po sobe utoky
         if (utocil) {
             zasahyPoSobe++;
         } else {
@@ -1268,13 +1643,6 @@ void bojSVextilem() {
             zasahyPoSobe = 0;
             cout << "Vextile ti ukradl utok na 2 kola!\n";
         }
-
-        // Vextiluv utok
-        float finalniUtokVextila = utokVextila + bonusUtokVextila;
-        if (kritickyUtok) finalniUtokVextila *= 2;
-
-        zivoty -= finalniUtokVextila;
-        cout << "Vextile ti zpusobil " << finalniUtokVextila << " zraneni. Mas " << zivoty << " zivotu.\n";
 
         // Odpocet bloku
         if (blokovanyUtok) {
@@ -1297,8 +1665,8 @@ void bojSVextilem() {
 
     cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
     konec();
-    
 }
+
 
 void konec() {
 cout << endl;
@@ -1314,8 +1682,5 @@ cout << "KONEC HRY";
 
 int main() {
     uvodniKonverzace();
-    if (!vyberPostavy()) return 0;
-    if (!uvodniVolbaHrace()) return 0;
-    vstupDoVesnice();
     return 0;
 }
