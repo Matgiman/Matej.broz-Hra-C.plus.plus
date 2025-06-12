@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cstdlib> // Tato knihovna obsahuje funkci rand(), která generuje pseudonáhodné číslo, které potřebujeme v kódu. Dále obsahuje například srand() pro nastavení generátoru náhodných čísel.
-#include <ctime>  // Tato knihovna poskytuje funkci time(), kterou používá v kombinaci s srand()
+#include <cstdlib> // Tato knihovna obsahuje funkci rand(), která generuje náhodné číslo, které potřebujeme v kódu. Dále obsahuje například srand() pro nastavení generátoru náhodných čísel.
+#include <ctime>  // Tato knihovna poskytuje funkci time(), kterou používá v kombinaci s srand(), díky těmto funkcí je správně nastaveno šance na spadnutí zlata z monstra a další funkce.
 using namespace std;
 
 void uvodniKonverzace();
@@ -107,7 +107,7 @@ void uvodniVolba() {
         vyberPostavy();
     } else if (volba == 2) {
         cout << "\nRozhodl ses skoncit drive, nez jsi zacal. Konec hry.\n";
-        exit(0);
+        exit(0); // ukončí hned hru používám vždy když hráč umře a a nak onci
     } else {
         cout << "\nNeplatna volba, zkus to znovu.\n";
         uvodniVolba();
@@ -266,11 +266,13 @@ void pripravNaBoj() {
     cout << "\nRozhodl ses jit do boje, preju ti hodne stesti.\n";
     cout << "Cekaji te tri monstra a pote dorazis do dalsi vesnice.\n";
     cout << "Hodne stesti.\n";
+    cout << endl;
     cout << "\nPravidla boje:\n";
     cout << "V souboji proti normalnimu monstru budes mit vyhodu, budes zacinat prvni.\n";
     cout << "Kazde kolo se rozhodujes mezi utokem a obranou.\n";
     cout << "Pokud zvolis utok uberes monstru tolik zivotu kolik mas v promnene utok, ale monstrum ti ubere 0,5.\n";
     cout << "Pokud zvolis obranu, zautocis jen polovinou sveho utoku, ale monstrum ti ubere jen 0,3.\n";
+    cout << endl;
     cout << "Zakladni monstra vzdy jen utoci a padne z nich 1 zlato a daji ti 0,5 zkusenosti, za jednu zkusenost se ti prida zivot.\n";
     cout << "Mini bossove a hlavni boss muzou zautocit i zvolit obranu jako ty. Z nich pada vice zlata, mana a 1 zksenost.\n";
     cout << "Za zkusenosti ziskas navic zivoty, zlato vyuzijes ve vesnici na nakup.\n";
@@ -279,7 +281,6 @@ void pripravNaBoj() {
     cout << "Pak nasleduje vesnice a za ni te ceka boj s dvema minibossy, pak dojdes do posledni vesnice a za ni je hlavni boss.\n";
     cout << "Zakladni mostra maji 6 zivotu a silu 0.5. \n";
     rychlyBoj();
-
 
 
 }
@@ -347,7 +348,7 @@ void zacniBoj() {
 
             float aktualniUtok = utok;
             if (volba == 1) {
-                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {
+                if (volbaPostavy == 1 && delovaRanaAktivni && kolaDeloveRany > 0) {   // kontrola schopnosti pro Herculese 
                     aktualniUtok *= 2;
                     kolaDeloveRany--;
                     if (kolaDeloveRany == 0) delovaRanaAktivni = false;
