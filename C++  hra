@@ -1,8 +1,10 @@
+
 #include <iostream>
 #include <cstdlib> // Tato knihovna obsahuje funkci rand(), která generuje náhodné číslo, které potřebujeme v kódu. Dále obsahuje například srand() pro nastavení generátoru náhodných čísel.
 #include <ctime>  // Tato knihovna poskytuje funkci time(), kterou používá v kombinaci s srand(), díky těmto funkcí je správně nastaveno šance na spadnutí zlata z monstra a další funkce.
 using namespace std;
 
+void cekejNaEnter();
 void uvodniKonverzace();
 void uvodniVolba();
 bool vyberPostavy();
@@ -45,46 +47,63 @@ int utok = 3;
 int zlato = 2;
 int mana = 2;
 float zkusenosti = 0;
+float level = 0;
 int volbaPostavy;
-int vesniceVolba;
 int nakupVolba;
 bool vObchode = true;
 bool delovaRanaAktivni = false;
 int kolaDeloveRany = 0;
 
+void cekejNaEnter() { // funkce ktera zajisti lepsi plynulost pribehu, pokracuje se pomoci stisku enter
+    string vstup;
+    cout << "\n(Pokracuj stisknutim Enteru...)\n";
+    getline(cin, vstup);  // čeká na Enter
+}
+
+
 void uvodniKonverzace() {
     cout << "Vitej ve hre Smrtelna vez.\n";
+    cout << endl;
+    cout << endl;
     cout << "Kdysi davno tuto vez ovladal tvuj otec a moudre vladl okolnim vesnicim.\n";
     cout << "Vesnicani zili v miru a v klidu obchodovaly. Nahle vsak prsel do vesnice Vextile\n";
-    cout << "Nikdo nevedel kdo to je, odkud prisel, ale mel neco co vsichni chteli. Mel zlato a byl to mistr v pletichareni.\n";
+    cout << "Nikdo nevedel kdo to je, odkud prisel, ale mel neco co vsichni chteli. Mel zlato a byl to mistr pletichar.\n";
     cout << "Dokazal menit vlastni schopnosti a sliboval vsem vesnicanum, ze kdyz mu pomuzou muze pak vyrabet i zlato.\n";
     cout << "Vesnicane byli nadseni, ale netusili, ze se blizi zkaza, Vextile chtel pomoc od stareho kouzelnika.\n";
-    cout << "S je ho pomoci chtel pripravit specialni napoj, aby zlepsil svoje schopnosti, vse to videl stary knihovnik.\n";
-    cout << "Ten pak prichlizel, jak dava Vextile vypit lektvar 13 nejlepsim vesnicanum.\n";
+    cout << "S je ho pomoci pripravil specialni napoj, aby zlepsil svoje schopnosti, vse to videl i stary knihovnik.\n";
+    cout << "Ten pak prihlizel, jak dava Vextile vypit lektvar 13 nejlepsim vesnicanum.\n";
     cout << endl;
+    cekejNaEnter();
+    
     cout << "Vsech 13 vesnicanu, kteri byli schopni bojovat vypilo lektvary, v domeni ze ziskaji schopnost generovat zlato.\n";
     cout << "Jenze to byla past, po vypiti se z nich stali monstra, knihovnik mezitim utekl a Vextile sel zabirat vesnice.\n";
     cout << "Nova monstra poslouchali jen jeho rozkazy a Vextile se pripravoval znicit i vez s tvym otcem.\n";
     cout << "Stary knihovnik chtel varovat tveho otce, ale bylo uz pozde, dva zradni bratri Vexove, pomocnici Vextile ho zajali.\n";
     cout << "Knihovnikovi se vsak povedlo zachranit tebe, maleho syna stareho vladce veze a utect z vesnice do bezpeci.\n";
-    cout << "Vesnicane se marne branili, prtoi mosntrum, bratrum Vexum a Vextilovi jim nic nepomohlo.\n";
+    cout << "Vesnicane se marne branili, proti mosntrum, bratrum Vexum a Vextilovi jim nic nepomohlo.\n";
     cout << endl;
-    cout << "Po porazce byli nuceni obchodovat a pracovat pro Vextile. Ten se usidlil ve vezi a zacal vladnout tvrdou rukou.\n";
+    cekejNaEnter();
+    
+    cout << "Po porazce byli nuceni obchodovat a pracovat pro Vextile. Ten se usadil ve vezi a zacal vladnout tvrdou rukou.\n";
     cout << "Jeho cil je podmanit si takto i dalsi vesnice a mit vetsi moc a vice monster.\n";
     cout << "Stary knihovnik i s tebou stihl prchnout co nejdal do jezkyniho ukrytu.\n";
     cout << "Zde te naucil vechno co si pamatoval od bojovnych vesnicanu.\n";
-    cout << "Od teto hrozne tragedie uteklo uz 20 let a ted jsi uz dost stary na to aby jsi zanl pravdu.\n";
+    cout << "Od teto hrozne tragedie uteklo uz 20 let a ted jsi uz dost stary na to aby jsi znal pravdu.\n";
     cout << "Nyni je stary knihovnik mrtvy a ty jsi pripraven pomstit jeho i smrt otce a ostatnich.\n";
     cout << "Vextile mezitim ovladl i dalsi vesnice, stale vsak sidli ve smrtelne vezi tveho otce.\n";
     cout << endl;
+    cekejNaEnter();
+    
     cout << "Stale ho chrani i 13 monster a mini bossove bratri Vexove.\n";
     cout << "Tvym ukolem je dostat se nahoru, prezit, zabit mini bossy a hlavniho bosse Vextile\n";
-    cout << "Nezapomen ze monstra jsou ve skutecnosti jen nevini vesnicane, ale i tak je musis zabit.\n";
+    cout << "Nezapomen ze monstra jsou ve skutecnosti jen nevinni vesnicane, ale i tak je musis zabit.\n";
     cout << "Neboj se, na konci bude sance vratit vsem monsrum zivot a udelat z nich opet vesnicany.\n";
     cout << "Stary knihovnik ti dal lektvar, ktery je dokaze promenit zpet, ale k jeho vyrobe je potreba jeste malickost.\n";
     cout << "Je to krev samotneho Vextile, pokud se chces stat hrdinou musis se mu postavit i jeho monstrum a mini bosum.\n";
     cout << "Nyni se nachazis pred vesncici, zde je misto klidu a miru, vesnicani ti pomuzou na tve ceste.\n";
     cout << endl;
+    cekejNaEnter();
+    
     cout << "Mimo vesnice je ale uzemi monster a ty nemaji slitovani, ani dusi, umi jen jednine, zabijet.\n";
     cout << "Za kazde porazene monstrum ziskas zkusenosti, manu a zlato.\n";
     cout << "Ty pak pouzijes ve vesnici na vylepseni schopnosti.\n";
@@ -101,6 +120,7 @@ void uvodniVolba() {
     cout << "2. Ukoncit hru\n";
     cout << "Tva volba: ";
     cin >> volba;
+    cout << endl;
 
     if (volba == 1) {
         cout << "\nHodne stesti tvoje cesta zacina.\n";
@@ -123,6 +143,7 @@ bool vyberPostavy() {
     cout << "- Mana: 2\n";
     cout << "- Zlato: 2\n";
     cout << "- Zkusenosti: 0\n";
+    cout << "- Level: 0\n";
     cout << "- Utok: 3\n";
     cout << "- Schopnost: Delova rana = Za 2 many bude mit na 2 nasledujici kola dvojnasobny utok\n\n";
 
@@ -132,6 +153,7 @@ bool vyberPostavy() {
     cout << "- Mana: 2\n";
     cout << "- Zlato: 2\n";
     cout << "- Zkusenosti: 0\n";
+    cout << "- Level: 0\n";
     cout << "- Utok: 3\n";
     cout << "- Schopnost: Meditace = Za 2 many aktivuje meditaci. Po meditaci se pridaji 5 zivotu\n\n";
 
@@ -279,15 +301,17 @@ void pripravNaBoj() {
     cout << "Ted te ceka prvni monstrum pak 3 monstra postupne, pote prijdes do vesnice, pak te cekaji 4 monstra postupne, pak nasleduje vesnice.\n";
     cout << "Pote te cekaji 3 monstra postupne a pak budes bojovat proti trem monstrum najednou a pak  proti dvoum monstrum najednou.\n";
     cout << "Pak nasleduje vesnice a za ni te ceka boj s dvema minibossy, pak dojdes do posledni vesnice a za ni je hlavni boss.\n";
-    cout << "Zakladni mostra maji 6 zivotu a silu 0.5. \n";
+    cout << "Zakladni mostra maji 6 zivotu a silu 0.5.\n";
+    cout << "Priprav se tvuj tutorial boj prave zacina.\n";
+    cout << endl;
     rychlyBoj();
 
 
 }
 
 void rychlyBoj() {
-    srand(time(0)); // resetuje čísla na nula
-    cout << "Rychly boj na zacatek!\n";
+    srand(time(0)); // resetuje čísla na nula, důležité pro pravděpodobnost na padnutí zlata
+    cout << "\nZacina tutorial boj s jednim monstrem\n";
     float zivotMonstra = 6.0;
     while (zivotMonstra > 0 && zivoty > 0) {
         cout << "\nZivoty: " << zivoty << " | Utok: " << utok << " | Zivoty monstra: " << zivotMonstra << "\n";
@@ -328,8 +352,12 @@ void rychlyBoj() {
         cout << "Z monstra nespadlo zlato.\n";
     }
 
-    cout << "Ziskal jsi 0.5 zkusenosti.\n";
-    cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    
+    cout << "\nTutorial souboj dokoncen – pokracujes dal!\n";
+
 
     zacniBoj(); 
 }
@@ -337,6 +365,7 @@ void rychlyBoj() {
 
 void zacniBoj() {
     srand(time(0));
+    cout << "\nZacina prvni boj – bojujes proti 3 monstrum postupne.\n";
     for (int i = 1; i <= 3; i++) {
         cout << "\nBojujes s monstrem cislo " << i << "!\n";
         float zivotMonstra = 6.0;
@@ -378,8 +407,9 @@ void zacniBoj() {
 
         if (zkusenosti >= 1.0) {
             zivoty += 1;
+            level += 1;
             zkusenosti -= 1.0;
-            cout << "Ziskal jsi jeden zivot za jednu zkusenost. Mas " << zivoty << " zivotu.\n";
+            cout << "Za 1 zkusenost mas vyssi level i zivot Mas " << zivoty << " zivotu.\n";
         }
 
         if (rand() % 100 < 75) {
@@ -389,7 +419,12 @@ void zacniBoj() {
             cout << "Z monstra nespadlo zlato.\n";
         }
 
-        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    
+    cout << "\nPrvni souboj dokoncen – pokracujes dal!\n";
+
     }
 
     cout << "\nPorazil jsi vsechna tri monstra! Pokracujes dal do dalsi vesnice.\n";
@@ -515,6 +550,7 @@ void obchodMnich2() {
 
 void zacniDruhyBoj() {
     srand(time(0));
+    cout << "\nZacina druhy boj – bojujes proti 4 monstrum postupne.\n";
     for (int i = 1; i <= 4; i++) {
         cout << "\nBojujes s monstrem cislo " << i << "!\n";
         float zivotMonstra = 6.0;
@@ -557,8 +593,9 @@ void zacniDruhyBoj() {
 
         if (zkusenosti >= 1.0) {
             zivoty += 1;
+            level += 1;
             zkusenosti -= 1.0;
-            cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+            cout << "Za 1 zkusenost mas vyssi level i zivot Mas " << zivoty << " zivotu.\n";
         }
 
         if (rand() % 100 < 75) {
@@ -568,7 +605,12 @@ void zacniDruhyBoj() {
             cout << "Z monstra nespadlo zlato.\n";
         }
 
-        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    
+    cout << "\nDruhy souboj dokoncen – pokracujes dal!\n";
+
     }
 
     cout << "\nPorazil jsi vsechna ctyri monstra! Pokracujes dal hloubeji do temneho lesa.\n";
@@ -694,6 +736,7 @@ void obchodMnich3() {
 
 void zacniTretiBoj() {
     srand(time(0));
+    cout << "\nZacina treti boj – bojujes postupne proti 3 monstrum.\n";
     for (int i = 1; i <= 3; i++) {
         cout << "\nBojujes s monstrem cislo " << i << " ve tretim boji!\n";
         float zivotMonstra = 6.0;
@@ -737,8 +780,9 @@ void zacniTretiBoj() {
 
         if (zkusenosti >= 1.0) {
             zivoty += 1;
+            level += 1;
             zkusenosti -= 1.0;
-            cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+            cout << "Za 1 zkusenost mas vyssi level i zivot Mas " << zivoty << " zivotu.\n";
         }
 
         if (rand() % 100 < 75) {
@@ -748,10 +792,14 @@ void zacniTretiBoj() {
             cout << "Z monstra nespadlo zlato.\n";
         }
 
-        cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    
+    cout << "\n Treti souboj dokoncen – pokracujes dal!\n";
+
     }
 
-    cout << "\nPorazil jsi vsechna tri monstra ve tretim boji! Blizis se k poslednimu souboji...\n";
     aktivujObchod4();
 }
 
@@ -947,14 +995,16 @@ void zacniCtvrtyBoj() {
 
     if (zkusenosti >= 1.0) {
         zivoty += 1;
+        level += 1;
         zkusenosti -= 1.0;
         cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
     }
 
     cout << "Celkem mas " << zlato << " zlata.\n";
     cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
 
-    cout << "\nSouboj dokonceny – pokracujes dal!\n";
+    cout << "\nCtvry souboj dokoncen – pokracujes dal!\n";
     aktivujObchod5();
 }
 
@@ -1154,14 +1204,16 @@ void zacniPatyBoj() {
 
     if (zkusenosti >= 1.0) {
         zivoty += 1;
+        level += 1;
         zkusenosti -= 1.0;
-        cout << "Ziskal jsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
+        cout << "Za 1 zkusenost mas vyssi level i zivot Mas " << zivoty << " zivotu.\n";
     }
 
     cout << "Celkem mas " << zlato << " zlata.\n";
     cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
 
-    cout << "\nPaty boj dokonceny – pokracujes dal!\n";
+    cout << "\nPaty boj dokoncen – pokracujes dal!\n";
     aktivujObchod6();
 }
 
@@ -1283,6 +1335,8 @@ void obchodMnich6() {
 }
 
 void minibossKonverzace() {
+cout << endl;
+cout << endl;
 cout << "Uz chces odejit z vesnice a vydat se dal. Jeste te zastavi vesnican a rekne: Ted te ceka nejvetsi zkouska, dva mini bossove bratri Vexove chrani posledni vesnci.\n";
 cout << "Smrtelna vez je az na konci vesnice a v ni je hlavni bos Vextile. Nejdrive musis porazit oba mini bossy, cekaji uz na tebe, hodne stesi.\n";
 cout << "Pomalu se blizis k vesnci tesne pred ni stoji dva pomocnici, dva mini bossove, dva bratri Vexove\n";
@@ -1318,7 +1372,7 @@ void zacniSestyboj() {
     float zivotyMinibossu[2] = {20.0, 20.0};
     bool hracSeBranilMinuleKolo = false; // NOVÁ PROMĚNNÁ
 
-    cout << "\nZacina paty boj – bojujes proti 2 minibossum najednou!\n";
+    cout << "\nZacina sesty boj – bojujes proti 2 minibossum najednou!\n";
     while ((zivotyMinibossu[0] > 0 || zivotyMinibossu[1] > 0) && zivoty > 0) {
 
         // Nejprve útočí minibossové
@@ -1383,19 +1437,17 @@ void zacniSestyboj() {
         }
     }
 
-    cout << "\nPorazil jsi oba minibossy a ziskal jsi jejich poklad.\n";
+    cout << "\nPorazil jsi oba minibossy a ziskal jsi jejich poklad. Ziskal jsi z kazdeho monstra zkusenost, takze mas dva zivoty a levely navic.\n";
     zlato += 15;
-    zkusenosti += 3;
+    level += 2;
+    zivoty += 2;
     mana += 2.0;
 
-    if (zkusenosti >= 1.0) {
-        zivoty += 1;
-        zkusenosti -= 1.0;
-        cout << "Ziskal jsi dalsi zivot za zkusenosti. Mas " << zivoty << " zivotu.\n";
-    }
-
-    cout << "Celkem mas: " << zlato << " zlata a " << zkusenosti << " zkusenosti.\n";
-    cout << "\nSesty souboj ukoncen – pokracujes dal!\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    
+    cout << "\nSesty souboj dokoncen – pokracujes dal!\n";
 
     aktivujObchod7();
 }
@@ -1519,6 +1571,8 @@ void obchodMnich7() {
 }
 
 void hlavnibossKonerzace() {
+cout << endl;
+cout << endl;
 cout << "Nyni uz jsi porazil vsechna monstra, uz jsi porazil i mini bossy a nyni se nachazis pred mistem kam cela tvoje cesta smerovala pred Smrtelnou vezi.\n";
 cout << "Seberes vsechnu odvahu a vstoupis dovnitr. Vez je vysoka, Vextile je az nahore. Je tam schvalne zbabelec, chce aby ses vycerpal stoupanim a nemel tolik sil na boj.\n";
 cout << "Ty vsak vytahnes lektvar od knihovnika, je to lektvar levitace, staci ti akorat. Vystoupas az do posledniho patra a spatris hlavniho bosse Vextila.\n";
@@ -1529,13 +1583,15 @@ cout << "Muze utocit, branit se, lecit nebo dat kriticky utok.\n";
 cout << "Kdyz opakuje stejnou schopnost, zesiluje ji.\n";
 cout << "Po trech tvych utocich ti muze zablokovat utok.\n";
 cout << "Ma sanci ti resetovat schopnost a manu.\n";
+cout << endl;
+cout << "\nZacina posledni boj s hlavnim bossem!\n";
 bojSVextilem ();
 }
 
 // presne popisuji co kazda funkce dela abych dodržel podminky ohledne halvniho bosse
 void bojSVextilem() {
     srand(time(0));
-    float zivotyVextila = 40.0;
+    float zivotyVextila = 50.0;
     float utokVextila = 2.0;
     string posledniEfekt = "";
     string aktualniEfekt = "";
@@ -1658,13 +1714,13 @@ void bojSVextilem() {
     if (zivoty <= 0) {
         cout << "\nByl jsi porazen Vextilem. Konec hry.\n";
         exit(0);
-    } else {
-        cout << "\nZvitezil jsi nad Vextilem! Ziskavas 10 zlata a 2 zkusenosti.\n";
-        zlato += 10;
-        zkusenosti += 2.0;
     }
 
-    cout << "Celkem mas: " << zlato << " zlata, " << zkusenosti << " zkusenosti.\n";
+    cout << "Celkem mas " << zlato << " zlata.\n";
+    cout << "Aktualni zkusenosti: " << zkusenosti << "\n";
+    cout << "Aktualni level:" << level << "\n";
+    cout << "\nPorazil jsi hlavniho bosse a dohral jsi hru!\n";
+    
     konec();
 }
 
